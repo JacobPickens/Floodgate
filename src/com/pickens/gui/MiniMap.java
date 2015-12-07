@@ -156,19 +156,21 @@ public class MiniMap extends GuiElement {
 
 	@Override
 	public void update(GameContainer gc, int delta) {
-		ticker++;
-		if(ticker > update) {
-			ticker = 0;
-			drawToMap();
-		}
-		
-		if(this.x != miniX && !Constants.MINI_MAP_FOCUSED) {
-			this.x = miniX;
-			this.y = miniY;
-		}
-		
-		if(gc.getInput().isKeyPressed(Input.KEY_M) && !Constants.INVENTORY_OPEN) {
-			toggle();
+		if(Constants.MINI_MAP) {
+			ticker++;
+			if(ticker > update) {
+				ticker = 0;
+				drawToMap();
+			}
+			
+			if(this.x != miniX && !Constants.MINI_MAP_FOCUSED) {
+				this.x = miniX;
+				this.y = miniY;
+			}
+			
+			if(gc.getInput().isKeyPressed(Input.KEY_M) && !Constants.INVENTORY_OPEN) {
+				toggle();
+			}
 		}
 	}
 
