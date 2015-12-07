@@ -1,0 +1,143 @@
+package com.pickens.items;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+
+import com.pickens.util.Constants;
+import com.pickens.util.Fonts;
+import com.pickens.util.Images;
+
+public class RemoveSlot {
+
+	Item item;
+	
+	int x, y, ox, oy, width, height;
+	
+	private boolean in;
+	private boolean clicked;
+	private int currentButton;
+	private boolean tooltip = false;
+	
+	Color color;
+	Inventory inv;
+	
+	int lag = 0;
+	
+	public RemoveSlot(int x, int y, int ox, int oy, Inventory inv) {
+		this.x = x;
+		this.y = y;
+		this.width = Constants.TILE_SIZE;
+		this.height = Constants.TILE_SIZE;
+		this.ox = ox;
+		this.oy = oy;
+		this.inv = inv;
+		
+		color = new Color(0, 0, 0, 0);
+	}	
+	
+	public void render(Graphics g) {
+		g.setColor(Color.red);
+		Images.ITEMS.getSubImage(0, 2).draw(ox + (x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x)), oy + (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y)));
+		g.translate(ox, oy);
+		if(hasItem()) {
+			item.render(g);
+		}
+		g.translate(-ox, -oy);
+		g.setColor(color);
+		g.fillRect(ox + (x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x)), oy + (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y)), Constants.TILE_SIZE, Constants.TILE_SIZE);
+		if(tooltip) {
+			int x = ox + (this.x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * this.x));
+			int y = oy + (this.y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * this.y));
+			g.setColor(Color.black);
+			g.fillRect(x, y-25, Fonts.CLASS_TEXT.getWidth("Remove"), 20);
+			g.setColor(Color.white);
+			Fonts.CLASS_TEXT.drawString(x, y-23, "Remove");
+		}
+	}
+	
+	public void check(GameContainer gc, int delta) {
+		int x = this.x*width;
+		int y = this.y*height;
+		
+		Input input = gc.getInput();
+		
+		int mx = input.getMouseX();
+		int my = input.getMouseY();
+		
+		// On Hover
+		if((mx > ox + x && mx < ox + x + width) && (my > oy + y && my < oy + y + height)) {
+			if(!in) {
+				onHover();
+				in = true;
+			}
+		} else if(in == true) {
+			in = false;
+			onLeave();
+		}
+		
+		// On Click
+		if((mx > ox + x && mx < ox + x + width) && (my > oy + y && my < oy + y + height)) {
+			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !clicked) {
+				onClick(Input.MOUSE_LEFT_BUTTON, gc);
+				currentButton = Input.MOUSE_LEFT_BUTTON;
+				clicked = true;
+			} else if(input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !clicked) {
+				onClick(Input.MOUSE_MIDDLE_BUTTON, gc);
+				currentButton = Input.MOUSE_MIDDLE_BUTTON;
+				clicked = true;
+			} else if(input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON) && !clicked) {
+				onClick(Input.MOUSE_RIGHT_BUTTON, gc);
+				currentButton = Input.MOUSE_RIGHT_BUTTON;
+				clicked = true;
+			} else if(clicked == true && !input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
+				onRelease(currentButton, gc);
+				clicked = false;
+			}
+		}
+		
+		update(gc, delta);
+	}
+
+	public void update(GameContainer gc, int delta) {
+		
+	}
+
+	public void onClick(int button, GameContainer gc) {
+		
+	}
+
+	public void onRelease(int button, GameContainer gc) {
+		if(inv.getInventoryManager().hasItem()) {
+			inv.getInventoryManager().setItem(null);
+		}
+	}
+	
+	public void onHover() {
+		color.a = .6f;
+		tooltip = true;
+	}
+	
+	public void onLeave() {
+		color.a = 0;
+		tooltip = false;
+	}
+	
+	public Item getItem() {
+		return item;
+	}
+	
+	public void setItem(Item i) {
+		item = i;
+	}
+	
+	public boolean hasItem() {
+		if(item == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+}
