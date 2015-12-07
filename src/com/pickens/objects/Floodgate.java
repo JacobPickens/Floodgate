@@ -73,6 +73,7 @@ public class Floodgate extends Object {
 		}
 		if(disabled == true) {
 			closed = false;
+			oc.remove(this);
 		}
 	}
 
