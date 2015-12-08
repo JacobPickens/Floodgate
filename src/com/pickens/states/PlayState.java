@@ -10,10 +10,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.pickens.gui.GuiManager;
 import com.pickens.gui.InventoryButton;
 import com.pickens.gui.MiniMap;
+import com.pickens.gui.PauseMenu;
 import com.pickens.gui.ToggleBlueButton;
 import com.pickens.gui.ToggleGreenButton;
 import com.pickens.gui.ToggleRedButton;
-import com.pickens.items.Inventory;
 import com.pickens.map.TileMap;
 import com.pickens.objects.ObjectController;
 import com.pickens.objects.Player;
@@ -27,6 +27,7 @@ public class PlayState extends BasicGameState {
 	public static Player player;
 	public static GuiManager gm;
 	public static MiniMap mm;
+	public static PauseMenu pm;
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		reset();
@@ -53,6 +54,8 @@ public class PlayState extends BasicGameState {
 		mm = new MiniMap(Constants.WIDTH, 0, gm, map, objects, player);
 		gm.add(mm);
 		gm.setJustification(GuiManager.CENTER_JUST);
+		pm = new PauseMenu(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
+		gm.add(pm);
 		
 		Constants.RED_DOOR_STATE = false;
 		Constants.GREEN_DOOR_STATE = false;
@@ -86,9 +89,12 @@ public class PlayState extends BasicGameState {
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {	
+		// Fix this!
 		if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE) && !Constants.INVENTORY_OPEN && !Constants.MINI_MAP_FOCUSED && !Constants.PLAYER_PAUSED) {
-			System.exit(0);
-		} else if(gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
+			pm.toggle();
+			Constants.PAUSED = true;
+			Constants.PLAYER_PAUSED = true;
+		} else if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			InventoryButton.toggle();
 			Constants.INVENTORY_OPEN = false;
 			Constants.MINI_MAP_FOCUSED = false;
