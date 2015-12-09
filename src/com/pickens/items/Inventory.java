@@ -124,6 +124,10 @@ public class Inventory {
 			ii.update(gc, delta);
 			im.update(gc);
 		}
+		
+		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
+			slots[0][0].setItem(new MapItem(0, 0, p, this));
+		}
 	}
 
 	public Slot[][] getSlots() {

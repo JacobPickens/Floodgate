@@ -47,7 +47,7 @@ public class MiniMap extends GuiElement {
 		this.oc = oc;
 		this.p = p;
 
-		tilesize = (int) (map.getWidth() * (Constants.WIDTH * 0.000013));
+		tilesize = (int) (map.getWidth() * (Constants.WIDTH * 0.000013f));
 		setWidth(tilesize * map.getWidth());
 		setHeight(tilesize * map.getHeight());
 

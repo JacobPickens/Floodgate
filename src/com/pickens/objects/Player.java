@@ -297,7 +297,6 @@ public class Player extends Humanoid {
 		if(sprint) {
 			s *= .6;
 		}
-		System.out.println(s);
 		if (this.moveTicker >= s) {
 			this.moveTicker = 0;
 			if ((this.y > 0) && (this.up)

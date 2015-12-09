@@ -34,8 +34,9 @@ public class PlayState extends BasicGameState {
 	}
 	
 	public static void reset() {
+		Constants.MAP_NUMBER = 1;
 		objects = new ObjectController();
-		map = new TileMap(200, 200, 12, objects);
+		map = new TileMap(objects);
 		map.spawnObjects(objects);
 		Constants.mapOffsetX = (Constants.WIDTH/2)-((map.getWidth()*Constants.TILE_SIZE)/2) + Constants.TILE_SIZE/2;
 		Constants.mapOffsetY = (Constants.HEIGHT/2)-((map.getHeight()*Constants.TILE_SIZE)/2) + Constants.TILE_SIZE/2;
@@ -63,8 +64,9 @@ public class PlayState extends BasicGameState {
 	}
 	
 	public static void win() {
+		Constants.MAP_NUMBER++;
 		objects = new ObjectController();
-		map = new TileMap(200, 200, 12, objects);
+		map = new TileMap(objects);
 		map.spawnObjects(objects);
 		Constants.mapOffsetX = (Constants.WIDTH/2)-((map.getWidth()*Constants.TILE_SIZE)/2) + Constants.TILE_SIZE/2;
 		Constants.mapOffsetY = (Constants.HEIGHT/2)-((map.getHeight()*Constants.TILE_SIZE)/2) + Constants.TILE_SIZE/2;
@@ -88,13 +90,13 @@ public class PlayState extends BasicGameState {
 		gm.render(g);
 	}
 
+	boolean pressed;
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {	
 		// Fix this!
-		if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE) && !Constants.INVENTORY_OPEN && !Constants.MINI_MAP_FOCUSED && !Constants.PLAYER_PAUSED) {
+		pressed = gc.getInput().isKeyPressed(Input.KEY_ESCAPE);
+		if(pressed && !Constants.INVENTORY_OPEN && !Constants.MINI_MAP_FOCUSED) {
 			pm.toggle();
-			Constants.PAUSED = true;
-			Constants.PLAYER_PAUSED = true;
-		} else if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+		} else if(pressed) {
 			InventoryButton.toggle();
 			Constants.INVENTORY_OPEN = false;
 			Constants.MINI_MAP_FOCUSED = false;

@@ -73,8 +73,12 @@ public class PauseMenu extends GuiElement  {
 	public void toggle() {
 		if(showing) {
 			showing = false;
+			Constants.PAUSED = false;
+			Constants.PLAYER_PAUSED = false;
 		} else {
 			showing = true;
+			Constants.PAUSED = true;
+			Constants.PLAYER_PAUSED = true;
 		}
 	}
 	
@@ -142,7 +146,7 @@ public class PauseMenu extends GuiElement  {
 			g.setColor(Color.gray);
 			g.fillRect(x, y, width, height);
 			g.setColor(Color.white);
-			Fonts.MENU_TEXT.drawString(this.x + width/2 - Fonts.MENU_TEXT.getWidth("Quit (ESC)")/2, y + Fonts.MENU_TEXT.getLineHeight()/2, "Quit (ESC)");
+			Fonts.MENU_TEXT.drawString(this.x + width/2 - Fonts.MENU_TEXT.getWidth("Quit")/2, y + Fonts.MENU_TEXT.getLineHeight()/2, "Quit");
 			g.setColor(color);
 			g.fillRect(this.x, this.y, this.width, this.height);
 		}

@@ -24,7 +24,7 @@ public class Chest extends Object {
 			
 			if(r.nextInt(100) < -3) {
 				type = Item.ULTRA;
-			} else if(r.nextInt(100) < 20) {
+			} else if(r.nextInt(100) < 20+( Constants.MAP_NUMBER*.2)) {
 				type = Item.MAJOR;
 			} else if(r.nextInt(100) < 40) {
 				type = Item.NORMAL;

@@ -90,6 +90,9 @@ public class Constants {
 	public static boolean MINI_MAP_FOCUSED = false;
 	public static boolean CAN_SPRINT = true;
 	
+	//////////////////// Player Stats ////////////////////
+	public static int MAP_NUMBER = 1;
+	
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
 	private static NormalItems[] normalPool = {NormalItems.BUBBLE};

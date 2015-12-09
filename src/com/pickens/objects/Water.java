@@ -13,13 +13,16 @@ public class Water extends Object {
 	private int spreadCount = 0;
 	private int spread;
 	
+	private int multiplier = 1;
+	
 	public Water(int x, int y, TileMap map, ObjectController oc) {
 		super(x, y, map, oc);
 		if(map.getRawData()[x][y] == Constants.FLOOR) {
 			map.getRawData()[x][y] = Constants.WATER;
 			map.swap(x, y);
 		}
-		spread = new Random().nextInt(40)+80;
+		multiplier += Constants.MAP_NUMBER * .3f;
+		spread = new Random().nextInt(40*multiplier)+80;
 	}
 
 	@Override
