@@ -108,6 +108,10 @@ public class Slot {
 	public void update(GameContainer gc, int delta) {
 		ticker++;
 		
+		if(hasItem()) {
+			item.update(gc, delta);
+		}
+		
 		if(ticker > 10) {
 			if(!Constants.REROLL) {
 				if(left && clickCount == 1 && hasItem() && getItem() instanceof TankEquipment && inv.getInventoryManager().getItem() instanceof BubbleItem) {

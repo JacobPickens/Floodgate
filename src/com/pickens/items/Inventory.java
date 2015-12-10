@@ -47,14 +47,15 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
+				s.setItem(new TankEquipment(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
 		slots[0][0].setItem(new MapItem(0, 0, p, this));
 		remove = new RemoveSlot(-1, height-1, this.x, this.y, this);
-		head = new HeadSlot(0, -1, this.x, this.y, this);
-		body = new BodySlot(1, -1, this.x, this.y, this);
-		feet = new FeetSlot(2, -1, this.x, this.y, this);
+		head = new HeadSlot(0, -1, 5, Constants.HEIGHT-133, this);
+		body = new BodySlot(1, -1, 5, Constants.HEIGHT-133, this);
+		feet = new FeetSlot(2, -1, 5, Constants.HEIGHT-133, this);
 		
 		ii = new ItemInfo();
 		im = new InventoryManager();
@@ -74,12 +75,11 @@ public class Inventory {
 		}
 		g.setColor(color);
 		g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
+		head.render(g);
+		body.render(g);
+		feet.render(g);
 		if(Constants.INVENTORY_OPEN) {
 			remove.render(g);
-			head.render(g);
-			body.render(g);
-			feet.render(g);
-			
 			for(int y = 0; y < height; y++) {
 				for(int x = 0; x < width; x++) {
 					slots[x][y].render(g);
@@ -104,11 +104,17 @@ public class Inventory {
 	}
 	
 	public void update(GameContainer gc, int delta) {
+		head.check(gc, delta);
+		body.check(gc, delta);
+		feet.check(gc, delta);
 		if(Constants.INVENTORY_OPEN) {
 			remove.check(gc, delta);
-			head.check(gc, delta);
-			body.check(gc, delta);
-			feet.check(gc, delta);
+			head.ox = this.x;
+			head.oy = this.y;
+			body.ox = this.x;
+			body.oy = this.y;
+			feet.ox = this.x;
+			feet.oy = this.y;
 			if(gc.getInput().isKeyPressed(Input.KEY_SPACE) && !Constants.REMOVE_MODE && !Constants.PLACE_MODE) {
 				Constants.REMOVE_MODE = true;
 				Constants.INVENTORY_OPEN = false;
@@ -123,6 +129,13 @@ public class Inventory {
 			}
 			ii.update(gc, delta);
 			im.update(gc);
+		} else {
+			head.ox = 5;
+			head.oy = Constants.HEIGHT-133;
+			body.ox = 5;
+			body.oy = Constants.HEIGHT-133;
+			feet.ox = 5;
+			feet.oy = Constants.HEIGHT-133;
 		}
 		
 		if(gc.getInput().isKeyPressed(Input.KEY_F)) {

@@ -1,5 +1,6 @@
 package com.pickens.items;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -33,6 +34,10 @@ public abstract class Item {
 	
 	public void render(Graphics g) {
 		getImage().draw(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x), y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y));
+	}
+	
+	public void update(GameContainer gc, int delta) {
+		
 	}
 	
 	public abstract void action();

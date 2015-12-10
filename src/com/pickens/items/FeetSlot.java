@@ -98,28 +98,37 @@ public class FeetSlot {
 		// On Click
 		if((mx > ox + x && mx < ox + x + width) && (my > oy + y && my < oy + y + height)) {
 			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !clicked) {
-				onClick(Input.MOUSE_LEFT_BUTTON, gc);
+				if(Constants.INVENTORY_OPEN)
+					onClick(Input.MOUSE_LEFT_BUTTON, gc);
 				currentButton = Input.MOUSE_LEFT_BUTTON;
 				clicked = true;
 			} else if(input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !clicked) {
-				onClick(Input.MOUSE_MIDDLE_BUTTON, gc);
+				if(Constants.INVENTORY_OPEN)
+					onClick(Input.MOUSE_MIDDLE_BUTTON, gc);
 				currentButton = Input.MOUSE_MIDDLE_BUTTON;
 				clicked = true;
 			} else if(input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON) && !clicked) {
-				onClick(Input.MOUSE_RIGHT_BUTTON, gc);
+				if(Constants.INVENTORY_OPEN)
+					onClick(Input.MOUSE_RIGHT_BUTTON, gc);
 				currentButton = Input.MOUSE_RIGHT_BUTTON;
 				clicked = true;
 			} else if(clicked == true && !input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
-				onRelease(currentButton, gc);
+				if(Constants.INVENTORY_OPEN)
+					onRelease(currentButton, gc);
 				clicked = false;
 			}
 		}
 		
-		update(gc, delta);
+		if(Constants.INVENTORY_OPEN)
+			update(gc, delta);
 	}
 
 	public void update(GameContainer gc, int delta) {
 		ticker++;
+		
+		if(hasItem()) {
+			item.update(gc, delta);
+		}
 		
 		if(ticker > 10) {
 			if(left && clickCount == 1) {
