@@ -37,16 +37,16 @@ public class Water extends Object {
 		}
 		if(spreadCount >= spread) {
 			spreadCount = 0;
-			if(x > 0 && (map.getRawData()[x-1][y] == Constants.FLOOR) && (oc.getObject(x-1, y) == null || oc.getObject(x-1, y) instanceof FaucetStopper || oc.getObject(x-1, y) instanceof Floodgate)) {
+			if(x > 0 && (map.getRawData()[x-1][y] == Constants.FLOOR) && (oc.getObject(x-1, y) == null || oc.getObject(x-1, y) instanceof FaucetStopper || oc.getObject(x-1, y) instanceof Trap || oc.getObject(x-1, y) instanceof Floodgate)) {
 				spread(x-1, y);
 			}
-			if(x < map.getWidth()-1 && map.getRawData()[x+1][y] == Constants.FLOOR && (oc.getObject(x+1, y) == null || oc.getObject(x+1, y) instanceof FaucetStopper || oc.getObject(x+1, y) instanceof Floodgate)) {
+			if(x < map.getWidth()-1 && map.getRawData()[x+1][y] == Constants.FLOOR && (oc.getObject(x+1, y) == null || oc.getObject(x+1, y) instanceof FaucetStopper || oc.getObject(x+1, y) instanceof Trap || oc.getObject(x+1, y) instanceof Floodgate)) {
 				spread(x+1, y);
 			}
-			if(y > 0 && map.getRawData()[x][y-1] == Constants.FLOOR && (oc.getObject(x, y-1) == null || oc.getObject(x, y-1) instanceof FaucetStopper || oc.getObject(x, y-1) instanceof Floodgate)) {
+			if(y > 0 && map.getRawData()[x][y-1] == Constants.FLOOR && (oc.getObject(x, y-1) == null || oc.getObject(x, y-1) instanceof FaucetStopper || oc.getObject(x, y-1) instanceof Trap || oc.getObject(x, y-1) instanceof Floodgate)) {
 				spread(x, y-1);
 			}
-			if(y < map.getHeight()-1 && map.getRawData()[x][y+1] == Constants.FLOOR && (oc.getObject(x, y+1) == null || oc.getObject(x, y+1) instanceof FaucetStopper || oc.getObject(x, y+1) instanceof Floodgate)) {
+			if(y < map.getHeight()-1 && map.getRawData()[x][y+1] == Constants.FLOOR && (oc.getObject(x, y+1) == null || oc.getObject(x, y+1) instanceof Trap || oc.getObject(x, y+1) instanceof FaucetStopper || oc.getObject(x, y+1) instanceof Floodgate)) {
 				spread(x, y+1);
 			}
 		}
