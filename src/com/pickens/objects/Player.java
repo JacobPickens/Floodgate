@@ -1,5 +1,7 @@
 package com.pickens.objects;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,6 +12,7 @@ import com.pickens.gui.DeathMenu;
 import com.pickens.gui.GuiManager;
 import com.pickens.gui.HealthBar;
 import com.pickens.gui.OxygenBar;
+import com.pickens.items.Equipment;
 import com.pickens.items.Inventory;
 import com.pickens.items.TankEquipment;
 import com.pickens.map.TileMap;
@@ -48,6 +51,8 @@ public class Player extends Humanoid {
 	private static BlockPlacer bp;
 	
 	public static DeathMenu deathMenu;
+	
+	Random r = new Random();
 	
 	public Player(int x, int y, TileMap map, ObjectController oc) {
 		super(x, y, map, oc);
@@ -297,6 +302,14 @@ public class Player extends Humanoid {
 		if(sprint) {
 			s *= .6;
 		}
+		// Damage Feet Items
+		if(inv.getFeet().hasItem()) {
+			Equipment i = (Equipment) inv.getFeet().getItem();
+			if(r.nextInt(100) < 3) {
+				i.damage(this);
+			}
+		}
+		
 		if (this.moveTicker >= s) {
 			this.moveTicker = 0;
 			if ((this.y > 0) && (this.up)

@@ -2,7 +2,12 @@ package com.pickens.items;
 
 import java.util.Random;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 import com.pickens.objects.Player;
+import com.pickens.util.Constants;
 
 public abstract class Equipment extends Item {
 
@@ -16,6 +21,10 @@ public abstract class Equipment extends Item {
 	
 	private int gearType;
 	private int condition;
+	private int maxDurability;
+	private int durability;
+	
+	Random r = new Random();
 	
 	public Equipment(int x, int y, Player p, Inventory i) {
 		super(x, y, p, i);
@@ -27,11 +36,53 @@ public abstract class Equipment extends Item {
 		} else {
 			setCondition(DAMAGED);
 		}
+		maxDurability = 0;
+		durability = 0;
 	}
 	
 	public abstract void modify();
 	public abstract void undo();
-
+	public abstract void damageCall(Player p);
+	public abstract void onBreak();
+	
+	public void damage(Player p) {
+		damageCall(p);
+		if(durability <= 0 && maxDurability > 0) {
+			switch(getGearType()) {
+			case HEAD:
+				i.getHead().setItem(null);
+				onBreak();
+				undo();
+				break;
+			case BODY:
+				i.getBody().setItem(null);
+				onBreak();
+				undo();
+				break;
+			case FEET:
+				i.getFeet().setItem(null);
+				onBreak();
+				undo();
+				break;
+			}
+		}
+	}
+	
+	public void render(Graphics g) {
+		getImage().draw(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x), y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y));
+		if(maxDurability > 0) {
+			g.setColor(Color.white);
+			g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2,
+					(y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y)) + Constants.TILE_SIZE - 8,
+					(Constants.TILE_SIZE - 4), 6);
+			g.setColor(Color.red);
+			float scale = (float)durability / (float)maxDurability;
+			g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2,
+					(y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y)) + Constants.TILE_SIZE - 8,
+					(Constants.TILE_SIZE - 4) * scale, 6);
+		}
+	}
+	
 	public int getGearType() {
 		return gearType;
 	}
@@ -62,6 +113,23 @@ public abstract class Equipment extends Item {
 			break;
 		}
 		return s;
+	}
+
+	public int getDurability() {
+		return durability;
+	}
+
+	public void setDurability(int durability) {
+		this.durability = durability;
+		this.maxDurability = durability;
+	}
+
+	public int getMaxDurability() {
+		return maxDurability;
+	}
+	
+	public void addDurability(int a) {
+		durability += a;
 	}
 
 }

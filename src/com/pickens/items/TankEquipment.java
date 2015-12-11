@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.pickens.objects.Player;
+import com.pickens.states.PlayState;
 import com.pickens.util.Constants;
 import com.pickens.util.Images;
 
@@ -27,14 +28,17 @@ public class TankEquipment extends Equipment {
 		case Equipment.DAMAGED:
 			speedEffect = 3;
 			maxOxygen = 5;
+			setDurability(10);
 			break;
 		case Equipment.USED:
 			speedEffect = 5;
 			maxOxygen = 15;
+			setDurability(35);
 			break;
 		case Equipment.NEW:
 			speedEffect = 7;
 			maxOxygen = 20;
+			setDurability(75);
 			break;
 		}
 		if(getCondition() != Equipment.NEW) {
@@ -83,6 +87,8 @@ public class TankEquipment extends Equipment {
 		} else {
 			oxygen += o;
 		}
+		damage(PlayState.player);
+		setName(Equipment.getConditionString(getCondition()) + " Scuba Tank");
 		setDescription("* Has " + (int)oxygen + " stored oxygen left.\n* Slows oxygen loss by " + (int)Math.ceil(speedEffect*.5) +".\n* Slows breathing by " + (int)Math.ceil(speedEffect*.3) + ".\n* Slows both swim and land speed by " + (int)Math.ceil(speedEffect*.3f) + ".\n* Disables sprinting.\n* Fillable with bubbles.\n(Equipment)(Body)");
 	}
 	
@@ -91,9 +97,15 @@ public class TankEquipment extends Equipment {
 		getImage().draw(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x), y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y));
 		g.setColor(Color.white);
 		g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2, (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y))+Constants.TILE_SIZE - 8, (Constants.TILE_SIZE-4), 6);
-		g.setColor(Color.cyan);
-		float scale = oxygen/maxOxygen;
+		g.setColor(Color.red);
+		float scale = (float)getDurability()/(float)getMaxDurability();
 		g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2, (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y))+Constants.TILE_SIZE - 8, (Constants.TILE_SIZE-4)*scale, 6);
+		
+		g.setColor(Color.white);
+		g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2, (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y))+Constants.TILE_SIZE - 16, (Constants.TILE_SIZE-4), 6);
+		g.setColor(Color.cyan);
+		scale = oxygen/maxOxygen;
+		g.fillRect(x * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * x) + 2, (y * Constants.TILE_SIZE + (Inventory.SLOT_SPACING * y))+Constants.TILE_SIZE - 16, (Constants.TILE_SIZE-4)*scale, 6);
 	}
 	
 	public void deplete() {
@@ -120,6 +132,16 @@ public class TankEquipment extends Equipment {
 	
 	public float getOxygen() {
 		return oxygen;
+	}
+
+	@Override
+	public void damageCall(Player p) {
+		addDurability(-(r.nextInt(4)+1));
+	}
+
+	@Override
+	public void onBreak() {
+		
 	}
 
 }
