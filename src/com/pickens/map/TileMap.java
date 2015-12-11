@@ -10,8 +10,11 @@ import com.pickens.objects.Chest;
 import com.pickens.objects.FaucetStopper;
 import com.pickens.objects.Floodgate;
 import com.pickens.objects.ObjectController;
+import com.pickens.objects.PressurePlate;
 import com.pickens.objects.SpikeTrap;
+import com.pickens.objects.TriggeredTrap;
 import com.pickens.objects.Water;
+import com.pickens.objects.WaterBombTrap;
 import com.pickens.util.Constants;
 
 public class TileMap {
@@ -24,11 +27,8 @@ public class TileMap {
 	private int[][] map;
 	private int numberOfRooms;
 	private ObjectController oc;
-	
-	private int multiplier = 25;
 
 	public TileMap(ObjectController oc) {
-		multiplier += Constants.MAP_NUMBER*.2;
 		this.numberOfRooms = 15 + (int)Math.floor(Constants.MAP_NUMBER*.2);
 		if(this.numberOfRooms > 20) {
 			numberOfRooms = 20;
@@ -192,7 +192,11 @@ public class TileMap {
 			}
 			if(hasTrap == true && trapped == false && x > Math.min(x1, x2)+5 && r.nextInt(100) < 10) {
 				trapped = true;
-				oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
+				if(r.nextBoolean()) {
+					oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
+				} else {
+					oc.add(new PressurePlate(x, y+r.nextInt(2), this, oc, new WaterBombTrap(x, y, TriggeredTrap.DOWN, this, oc)));
+				}
 			}
 		}
 	}
@@ -211,7 +215,11 @@ public class TileMap {
 			}
 			if(hasTrap == true && trapped == false && y > Math.min(y1, y2)+5 && r.nextInt(100) < 10) {
 				trapped = true;
-				oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
+				if(r.nextBoolean()) {
+					oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
+				} else {
+					oc.add(new PressurePlate(x, y+r.nextInt(2), this, oc, new WaterBombTrap(x, y, TriggeredTrap.LEFT, this, oc)));
+				}
 			}
 		}
 	}

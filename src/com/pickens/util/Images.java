@@ -38,10 +38,13 @@ public class Images {
 	public static SpriteSheet ITEMS;
 	public static Image MAP;
 	
+	public static SpriteSheet TRAPS;
+	
 	public static void load() {
 		try {
 			WALL_SHEET = new SpriteSheet("res/wall_floor_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			RIM_SHEET = new SpriteSheet("res/rim_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
+			TRAPS = new SpriteSheet("res/trap_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			PLAYER_SHEET = new SpriteSheet("res/player_sheet.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			WATER_ANIMATION_SHEET = new SpriteSheet(RIM_SHEET.getSubImage(0, Constants.TILE_SIZE*1, Constants.TILE_SIZE*2, Constants.TILE_SIZE), Constants.TILE_SIZE, Constants.TILE_SIZE);
 			WATER_ANIMATION = new Animation(WATER_ANIMATION_SHEET, 1000);
