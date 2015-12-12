@@ -21,8 +21,8 @@ public class Water extends Object {
 			map.getRawData()[x][y] = Constants.WATER;
 			map.swap(x, y);
 		}
-		multiplier += Constants.MAP_NUMBER * .3f;
-		spread = new Random().nextInt(40*multiplier)+80;
+		multiplier += Constants.MAP_NUMBER * .4f;
+		spread = 100 - new Random().nextInt(20*multiplier);
 	}
 
 	@Override

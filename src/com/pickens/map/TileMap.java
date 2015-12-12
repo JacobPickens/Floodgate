@@ -29,18 +29,12 @@ public class TileMap {
 	private ObjectController oc;
 
 	public TileMap(ObjectController oc) {
-		this.numberOfRooms = 15 + (int)Math.floor(Constants.MAP_NUMBER*.2);
-		if(this.numberOfRooms > 20) {
-			numberOfRooms = 20;
+		this.numberOfRooms = 10 + (int)Math.floor(Constants.MAP_NUMBER*.2);
+		if(this.numberOfRooms > 15) {
+			numberOfRooms = 15;
 		}
-		this.w = 200 + ((numberOfRooms-15)*25);
-		this.h = 200 + ((numberOfRooms-15)*25);
-		if(this.w % 2 > 0) {
-			this.w += 1;
-		}
-		if(this.h % 2 > 0) {
-			this.h += 1;
-		}
+		this.w = 200;
+		this.h = 200;
 		this.oc = oc;
 		generateMap(w, h);
 		this.tile = new Tile[w][h];
