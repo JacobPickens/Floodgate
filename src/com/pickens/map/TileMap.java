@@ -179,48 +179,49 @@ public class TileMap {
 	}
 
 	public void hCorridor(int x1, int x2, int y) {
-		boolean hasTrap = false;
-		boolean trapped = false;
+//		boolean hasTrap = false;
+//		boolean trapped = false;
 		this.corridors.add(new Corridor(x1, x2, y, y + 2, 2, 0));
-		if(r.nextInt(100) < 50) {
-			hasTrap = true;
-		}
+//		if(r.nextInt(100) < 50) {
+//			hasTrap = true;
+//		}
 		for (int x = Math.min(x1, x2); x < Math.max(x1, x2) + 1; x++) {
 			this.map[x][y] = 0;
 			if (y > 0) {
 				this.map[x][(y + 1)] = 0;
 			}
-			if(hasTrap == true && trapped == false && x > Math.min(x1, x2)+5 && r.nextInt(100) < 10) {
-				trapped = true;
-				if(r.nextBoolean()) {
-					oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
-				} else {
-					oc.add(new PressurePlate(x, y+r.nextInt(2), this, oc, new WaterBombTrap(x, y, TriggeredTrap.DOWN, this, oc)));
-				}
-			}
+//			if (hasTrap == true && trapped == false && x > Math.min(x1, x2) + 5 && r.nextInt(100) < 10) {
+//				trapped = true;
+//				if (r.nextBoolean()) {
+//					oc.add(new SpikeTrap(x, y + r.nextInt(2), this, oc));
+//				} else {
+//					oc.add(new PressurePlate(x, y + r.nextInt(2), this, oc,
+//							new WaterBombTrap(x, y, TriggeredTrap.DOWN, this, oc)));
+//				}
+//			}
 		}
 	}
 
 	public void vCorridor(int y1, int y2, int x) {
-		boolean hasTrap = false;
-		boolean trapped = false;
+//		boolean hasTrap = false;
+//		boolean trapped = false;
 		this.corridors.add(new Corridor(x, x + 2, y1, y2, 2, 1));
-		if(r.nextInt(100) < 50) {
-			hasTrap = true;
-		}
+//		if(r.nextInt(100) < 50) {
+//			hasTrap = true;
+//		}
 		for (int y = Math.min(y1, y2); y < Math.max(y1, y2) + 1; y++) {
 			this.map[x][y] = 0;
 			if (x > 0) {
 				this.map[(x + 1)][y] = 0;
 			}
-			if(hasTrap == true && trapped == false && y > Math.min(y1, y2)+5 && r.nextInt(100) < 10) {
-				trapped = true;
-				if(r.nextBoolean()) {
-					oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
-				} else {
-					oc.add(new PressurePlate(x, y+r.nextInt(2), this, oc, new WaterBombTrap(x, y, TriggeredTrap.LEFT, this, oc)));
-				}
-			}
+//			if(hasTrap == true && trapped == false && y > Math.min(y1, y2)+5 && r.nextInt(100) < 10) {
+//				trapped = true;
+//				if(r.nextBoolean()) {
+//					oc.add(new SpikeTrap(x, y+r.nextInt(2), this, oc));
+//				} else {
+//					oc.add(new PressurePlate(x, y+r.nextInt(2), this, oc, new WaterBombTrap(x, y, TriggeredTrap.LEFT, this, oc)));
+//				}
+//			}
 		}
 	}
 
