@@ -10,6 +10,7 @@ import com.pickens.items.DiceItem;
 import com.pickens.items.FlippersEquipment;
 import com.pickens.items.Inventory;
 import com.pickens.items.Item;
+import com.pickens.items.LuckyUnderwearEquipment;
 import com.pickens.items.MajorItems;
 import com.pickens.items.MapItem;
 import com.pickens.items.MinorItems;
@@ -64,6 +65,11 @@ public class Constants {
 	public static boolean PLAYER_PAUSED = false;
 	public static boolean PAUSED = false;
 	
+	//////////////////// Chances ////////////////////
+	public static int NORMAL_CHANCE = 40;
+	public static int MAJOR_CHANCE = 20;
+	public static int ULTRA_CHANCE = -3;
+	
 	//////////////////// Classes ////////////////////
 	public static Character NORMAL;
 	public static Character RUNNER;
@@ -96,7 +102,7 @@ public class Constants {
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
 	private static NormalItems[] normalPool = {NormalItems.BUBBLE};
-	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK};
+	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR};
 	private static UltraMajorItems[] ultraPool = {};
 	
 	private static Random r = new Random();
@@ -138,6 +144,8 @@ public class Constants {
 			return new DiceItem(x, y, p, inv);
 		case TANK:
 			return new TankEquipment(x, y, p, inv);
+		case UNDERWEAR:
+			return new LuckyUnderwearEquipment(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}

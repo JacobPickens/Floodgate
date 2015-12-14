@@ -14,6 +14,7 @@ import com.pickens.gui.PauseMenu;
 import com.pickens.gui.ToggleBlueButton;
 import com.pickens.gui.ToggleGreenButton;
 import com.pickens.gui.ToggleRedButton;
+import com.pickens.items.LuckyUnderwearEquipment;
 import com.pickens.map.TileMap;
 import com.pickens.objects.ObjectController;
 import com.pickens.objects.Player;
@@ -61,6 +62,9 @@ public class PlayState extends BasicGameState {
 		Constants.RED_DOOR_STATE = false;
 		Constants.GREEN_DOOR_STATE = false;
 		Constants.BLUE_DOOR_STATE = false;
+		
+		Constants.PLAYER_PAUSED = false;
+		Constants.PAUSED = false;
 	}
 	
 	public static void win() {
@@ -74,12 +78,18 @@ public class PlayState extends BasicGameState {
 		Constants.mapTargetY = Constants.mapOffsetY;
 		
 		player.reset(map, objects, map.getWidth()/2-1, map.getHeight()/2-1);
+		if(player.inv.getHead().getItem() instanceof LuckyUnderwearEquipment) { // Scuba tank depelteion
+			((LuckyUnderwearEquipment)player.inv.getHead().getItem()).damageCall(player);
+		}
 		mm.reset(map, objects);
 		
 		Constants.INVENTORY_OPEN = false;
 		Constants.RED_DOOR_STATE = false;
 		Constants.GREEN_DOOR_STATE = false;
 		Constants.BLUE_DOOR_STATE = false;
+		
+		Constants.PLAYER_PAUSED = false;
+		Constants.PAUSED = false;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {

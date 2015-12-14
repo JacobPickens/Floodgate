@@ -33,7 +33,7 @@ public class FlippersEquipment extends Equipment {
 		}
 		setName(Equipment.getConditionString(getCondition()) + " Flippers");
 		setDescription("* Increases swim speed by " + speedEffect +".\n* Slows move speed by " + (int)Math.ceil(speedEffect*.8f) + "\n* Disables sprinting.\n* (Equipment)(Feet)");
-		setImage(Images.ITEMS.getSubImage(1, 0));
+		setImage(Images.ITEMS.getSubImage(1, 1));
 		setType(Item.MAJOR);
 	}
 

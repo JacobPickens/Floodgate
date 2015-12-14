@@ -47,11 +47,11 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
-				s.setItem(new BubbleItem(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
-		slots[0][0].setItem(new TankEquipment(0, 0, p, this));
+		slots[0][0].setItem(new MapItem(0, 0, p, this));
+		slots[1][0].setItem(new LuckyUnderwearEquipment(1, 0, p, this));
 		remove = new RemoveSlot(-1, height-1, this.x, this.y, this);
 		head = new HeadSlot(0, -1, 5, Constants.HEIGHT-133, this);
 		body = new BodySlot(1, -1, 5, Constants.HEIGHT-133, this);
@@ -138,9 +138,9 @@ public class Inventory {
 			feet.oy = Constants.HEIGHT-133;
 		}
 		
-		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
-			slots[0][0].setItem(new MapItem(0, 0, p, this));
-		}
+//		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
+//			slots[0][0].setItem(new MapItem(0, 0, p, this));
+//		}
 	}
 
 	public Slot[][] getSlots() {

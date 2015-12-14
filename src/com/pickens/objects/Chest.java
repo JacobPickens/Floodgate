@@ -22,11 +22,11 @@ public class Chest extends Object {
 			map.getRawData()[x][y] = Constants.CHEST;
 			map.swap(x, y);
 			
-			if(r.nextInt(100) < -3) {
+			if(r.nextInt(100) < Constants.ULTRA_CHANCE) {
 				type = Item.ULTRA;
-			} else if(r.nextInt(100) < 20+( Constants.MAP_NUMBER*.2)) {
+			} else if(r.nextInt(100) < Constants.MAJOR_CHANCE+( Constants.MAP_NUMBER*.2)) {
 				type = Item.MAJOR;
-			} else if(r.nextInt(100) < 40) {
+			} else if(r.nextInt(100) < Constants.NORMAL_CHANCE) {
 				type = Item.NORMAL;
 			} else {
 				type = Item.MINOR;
