@@ -22,7 +22,7 @@ public class Water extends Object {
 			map.swap(x, y);
 		}
 		multiplier += Constants.MAP_NUMBER * .4f;
-		spread = 100 - new Random().nextInt(20*multiplier);
+		spread = 100 - new Random().nextInt(30*multiplier);
 	}
 
 	@Override
