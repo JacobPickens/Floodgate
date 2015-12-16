@@ -49,8 +49,8 @@ public class FlippersEquipment extends Equipment {
 
 	@Override
 	public void undo() {
-		p.setSpeed(lastSpeed);
-		p.setWaterSpeed(lastWaterSpeed);
+		p.setSpeed(p.getSpeed() - (int)Math.ceil(speedEffect*.8f) );
+		p.setWaterSpeed(p.getWaterSpeed() + speedEffect);
 		Constants.CAN_SPRINT = true;
 	}
 

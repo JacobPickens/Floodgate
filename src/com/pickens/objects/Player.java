@@ -499,4 +499,8 @@ public class Player extends Humanoid {
 	public void addHealth(int h) {
 		this.health += h;
 	}
+	
+	public BuffManager getBuffs() {
+		return buffs;
+	}
 }

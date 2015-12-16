@@ -69,10 +69,10 @@ public class TankEquipment extends Equipment {
 
 	@Override
 	public void undo() {
-		p.setDrownSpeed(lastDrownSpeed);
-		p.setBreatheSpeed(lastBreatheSpeed);
-		p.setSpeed(lastSpeed);
-		p.setWaterSpeed(lastWaterSpeed);
+		p.setDrownSpeed(p.getDrownSpeed() - (int)Math.ceil(speedEffect*.5));
+		p.setBreatheSpeed(p.getBreatheSpeed() - (int)Math.ceil(speedEffect*.3));
+		p.setSpeed(p.getSpeed() - (int)Math.ceil(speedEffect*.3));
+		p.setWaterSpeed(p.getWaterSpeed() - (int)Math.ceil(speedEffect*.3));
 		Constants.CAN_SPRINT = true;
 	}
 

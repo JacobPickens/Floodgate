@@ -34,8 +34,8 @@ public class WaterShoesEquipment extends Equipment {
 
 	@Override
 	public void undo() {
-		p.setSpeed(lastSpeed);
-		p.setWaterSpeed(lastWaterSpeed);
+		p.setSpeed(p.getSpeed() + speedEffect);
+		p.setWaterSpeed(p.getWaterSpeed() + speedEffect);
 	}
 
 	@Override

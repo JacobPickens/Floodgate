@@ -47,18 +47,14 @@ public class SnorkelEquipment extends Equipment {
 	public void modify() {
 		lastDrownSpeed = p.getDrownSpeed();
 		lastBreatheSpeed = p.getBreatheSpeed();
-		lastSpeed = p.getSpeed();
-		lastWaterSpeed = p.getWaterSpeed();
 		p.setDrownSpeed(lastDrownSpeed + (int)Math.ceil(speedEffect*.5));
 		p.setBreatheSpeed(lastBreatheSpeed + (int)Math.ceil(speedEffect*.4));
 	}
 
 	@Override
 	public void undo() {
-		p.setDrownSpeed(lastDrownSpeed);
-		p.setBreatheSpeed(lastBreatheSpeed);
-		p.setSpeed(lastSpeed);
-		p.setWaterSpeed(lastWaterSpeed);
+		p.setDrownSpeed(p.getDrownSpeed() - (int)Math.ceil(speedEffect*.5));
+		p.setBreatheSpeed(p.getBreatheSpeed() - (int)Math.ceil(speedEffect*.4));
 	}
 
 	@Override
