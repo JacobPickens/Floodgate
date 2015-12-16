@@ -2,6 +2,6 @@ package com.pickens.items;
 
 public enum NormalItems {
 	
-	BUBBLE;
+	BUBBLE, WATER_SHOES, SNORKEL;
 	
 }

@@ -14,6 +14,7 @@ import com.pickens.gui.HealthBar;
 import com.pickens.gui.OxygenBar;
 import com.pickens.items.Equipment;
 import com.pickens.items.Inventory;
+import com.pickens.items.SnorkelEquipment;
 import com.pickens.items.TankEquipment;
 import com.pickens.map.TileMap;
 import com.pickens.states.PlayState;
@@ -383,6 +384,11 @@ public class Player extends Humanoid {
 	public void drowning() {
 		this.deplete += 1;
 		if (this.deplete >= drownSpeed) {
+			if(inv.getHead().getItem() instanceof SnorkelEquipment && !sprint) {
+				Equipment i = (Equipment) inv.getHead().getItem();
+				i.damage(this);
+			}
+			
 			this.deplete = 0;
 			if(inv.getBody().getItem() instanceof TankEquipment) { // Scuba tank depelteion
 				((TankEquipment)inv.getBody().getItem()).deplete();

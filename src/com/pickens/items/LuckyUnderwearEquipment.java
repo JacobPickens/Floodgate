@@ -34,11 +34,13 @@ public class LuckyUnderwearEquipment extends Equipment {
 	@Override
 	public void modify() {
 		Constants.MAJOR_CHANCE += effect;
+		Constants.ULTRA_CHANCE += effect/2;
 	}
 
 	@Override
 	public void undo() {
 		Constants.MAJOR_CHANCE -= effect;
+		Constants.ULTRA_CHANCE -= effect/2;
 	}
 
 	@Override

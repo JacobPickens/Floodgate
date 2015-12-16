@@ -7,6 +7,7 @@ import org.newdawn.slick.Color;
 import com.pickens.items.BarrierItem;
 import com.pickens.items.BubbleItem;
 import com.pickens.items.DiceItem;
+import com.pickens.items.FlipFlopEquipment;
 import com.pickens.items.FlippersEquipment;
 import com.pickens.items.Inventory;
 import com.pickens.items.Item;
@@ -16,8 +17,10 @@ import com.pickens.items.MapItem;
 import com.pickens.items.MinorItems;
 import com.pickens.items.NormalItems;
 import com.pickens.items.RunningShoesEquipment;
+import com.pickens.items.SnorkelEquipment;
 import com.pickens.items.TankEquipment;
 import com.pickens.items.UltraMajorItems;
+import com.pickens.items.WaterShoesEquipment;
 import com.pickens.objects.Player;
 
 public class Constants {
@@ -68,7 +71,7 @@ public class Constants {
 	//////////////////// Chances ////////////////////
 	public static int NORMAL_CHANCE = 40;
 	public static int MAJOR_CHANCE = 20;
-	public static int ULTRA_CHANCE = -3;
+	public static int ULTRA_CHANCE = 5;
 	
 	//////////////////// Classes ////////////////////
 	public static Character NORMAL;
@@ -101,9 +104,9 @@ public class Constants {
 	
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
-	private static NormalItems[] normalPool = {NormalItems.BUBBLE};
+	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL};
 	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR};
-	private static UltraMajorItems[] ultraPool = {};
+	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS};
 	
 	private static Random r = new Random();
 	public static Item rollMinor(int x, int y, Player p, Inventory inv) {
@@ -123,6 +126,10 @@ public class Constants {
 		switch(i) {
 		case BUBBLE:
 			return new BubbleItem(x, y, p, inv);
+		case WATER_SHOES:
+			return new WaterShoesEquipment(x, y, p, inv);
+		case SNORKEL:
+			return new SnorkelEquipment(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}
@@ -155,6 +162,8 @@ public class Constants {
 		UltraMajorItems i = ultraPool[r.nextInt(ultraPool.length)];
 		
 		switch(i) {
+		case FLIP_FLOPS:
+			return new FlipFlopEquipment(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}
