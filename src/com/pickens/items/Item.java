@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 import com.pickens.objects.Player;
 import com.pickens.util.Constants;
 
-public abstract class Item {
+public abstract class Item implements Cloneable {
 
 	int x, y, ox, oy;
 	
@@ -73,5 +73,10 @@ public abstract class Item {
 	public void setType(int type) {
 		this.type = type;
 	}
+	
+	 @Override
+	  protected Object clone() throws CloneNotSupportedException {
+	      return super.clone();
+	  }
 	
 }

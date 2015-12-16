@@ -8,6 +8,7 @@ import com.pickens.items.BarrierItem;
 import com.pickens.items.BubbleItem;
 import com.pickens.items.CarbonatedWaterItem;
 import com.pickens.items.DiceItem;
+import com.pickens.items.DuplicationPotionItem;
 import com.pickens.items.FlipFlopEquipment;
 import com.pickens.items.FlippersEquipment;
 import com.pickens.items.Inventory;
@@ -96,6 +97,7 @@ public class Constants {
 	public static boolean REMOVE_MODE = false;
 	public static int PLACE_TYPE = NONE;
 	public static boolean REROLL = false;
+	public static boolean CLONE = false;
 	
 	public static boolean MINI_MAP = false;
 	public static boolean MINI_MAP_FOCUSED = false;
@@ -108,7 +110,7 @@ public class Constants {
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
 	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL, NormalItems.SPEED_POTION};
 	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER};
-	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS};
+	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS, UltraMajorItems.DUPLICATION};
 	
 	private static Random r = new Random();
 	public static Item rollMinor(int x, int y, Player p, Inventory inv) {
@@ -170,6 +172,8 @@ public class Constants {
 		switch(i) {
 		case FLIP_FLOPS:
 			return new FlipFlopEquipment(x, y, p, inv);
+		case DUPLICATION:
+			return new DuplicationPotionItem(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}

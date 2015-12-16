@@ -16,8 +16,10 @@ public class DiceItem extends Item {
 
 	@Override
 	public void action() {
-		Constants.REROLL = true;
-		i.getSlots()[x][y].setItem(null);
+		if(!Constants.CLONE) {
+			Constants.REROLL = true;
+			i.getSlots()[x][y].setItem(null);
+		}
 	}
 
 }

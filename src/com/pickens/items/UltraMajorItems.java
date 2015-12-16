@@ -2,6 +2,6 @@ package com.pickens.items;
 
 public enum UltraMajorItems {
 
-	FLIP_FLOPS;
+	FLIP_FLOPS, DUPLICATION;
 	
 }

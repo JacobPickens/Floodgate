@@ -113,7 +113,7 @@ public class Slot {
 		}
 		
 		if(ticker > 10) {
-			if(!Constants.REROLL) {
+			if(!Constants.REROLL && !Constants.CLONE) {
 				if(left && clickCount == 1 && hasItem() && getItem() instanceof TankEquipment && inv.getInventoryManager().getItem() instanceof BubbleItem) {
 					((TankEquipment) getItem()).refill(((BubbleItem)inv.getInventoryManager().getItem()).amount);
 					inv.getInventoryManager().setItem(null);
@@ -123,7 +123,7 @@ public class Slot {
 						setItem(null);
 					}
 				}
-			} else {
+			} else if(Constants.REROLL) {
 				if(left && clickCount == 1) {
 					if(hasItem()) {
 						switch(item.getType()) {
@@ -141,6 +141,18 @@ public class Slot {
 							break;
 						}
 						Constants.REROLL = false;
+					}
+				}
+			} else if(Constants.CLONE) {
+				if(left && clickCount == 1) {
+					if(hasItem()) {
+						try {
+							Item i = (Item)item.clone();
+							inv.getInventoryManager().setItem(i);
+						} catch (CloneNotSupportedException e) {
+							e.printStackTrace();
+						}
+						Constants.CLONE = false;
 					}
 				}
 			}

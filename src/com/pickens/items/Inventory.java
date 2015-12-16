@@ -47,7 +47,7 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
-				s.setItem(new CarbonatedWaterItem(x, y, p, this));
+				s.setItem(new DuplicationPotionItem(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
@@ -98,6 +98,10 @@ public class Inventory {
 			if(Constants.REROLL) {
 				g.setColor(Color.white);
 				Fonts.MENU_TEXT.drawString(Constants.WIDTH/2 - Fonts.MENU_TEXT.getWidth("Click an item to reroll.")/2, 64, "Click an item to reroll.");
+			}
+			if(Constants.CLONE) {
+				g.setColor(Color.white);
+				Fonts.MENU_TEXT.drawString(Constants.WIDTH/2 - Fonts.MENU_TEXT.getWidth("Click an item to duplicate.")/2, 64, "Click an item to duplicate.");
 			}
 			im.render(g);
 			ii.render(g);
