@@ -5,11 +5,11 @@ import org.newdawn.slick.Image;
 import com.pickens.objects.Player;
 import com.pickens.util.Images;
 
-public class SpeedPotion extends Item {
+public class SpeedPotionItem extends Item {
 	
 	int amount;
 	
-	public SpeedPotion(int x, int y, Player p, Inventory i) {
+	public SpeedPotionItem(int x, int y, Player p, Inventory i) {
 		super(x, y, p, i);
 		amount = 3;
 		setName("Potion of Speed");

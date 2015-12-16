@@ -16,7 +16,7 @@ public class WaterShoesEquipment extends Equipment {
 	public WaterShoesEquipment(int x, int y, Player p, Inventory i) {
 		super(x, y, p, i);
 		setGearType(FEET);
-		speedEffect = 2;
+		speedEffect = 1;
 		setDurability(100);
 		setName("Water Shoes");
 		setDescription("* Increases movement speed by " + speedEffect +".\n* Increases swim speed by " + (int)Math.ceil(speedEffect*.5f) + "\n(Equipment)(Feet)");
