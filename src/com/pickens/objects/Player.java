@@ -12,6 +12,7 @@ import com.pickens.gui.DeathMenu;
 import com.pickens.gui.GuiManager;
 import com.pickens.gui.HealthBar;
 import com.pickens.gui.OxygenBar;
+import com.pickens.items.BuffManager;
 import com.pickens.items.Equipment;
 import com.pickens.items.Inventory;
 import com.pickens.items.SnorkelEquipment;
@@ -50,6 +51,7 @@ public class Player extends Humanoid {
 	private static GuiManager gm;
 	public static Inventory inv;
 	private static BlockPlacer bp;
+	private static BuffManager buffs;
 	
 	public static DeathMenu deathMenu;
 	
@@ -62,6 +64,7 @@ public class Player extends Humanoid {
 		
 		deathMenu = new DeathMenu(0, 0, gm);
 		bp = new BlockPlacer(map, oc, this);
+		buffs = new BuffManager();
 		Constants.INVENTORY_OPEN = false;
 		Constants.MINI_MAP = false;
 		Constants.MINI_MAP_FOCUSED = false;
@@ -76,7 +79,7 @@ public class Player extends Humanoid {
 		color = c.getColor();
 		drownSpeed = 60;
 		breatheSpeed = 30;
-
+		
 		gm.setJustification(GuiManager.LEFT_JUST);
 		gm.add(new HealthBar(10, 10, gm, this));
 		gm.add(new OxygenBar(10, 60, gm, this));
@@ -138,6 +141,8 @@ public class Player extends Humanoid {
 		Constants.currentCharacter.PLAYER_WDOWN.update(delta);
 		Constants.currentCharacter.PLAYER_WLEFT.update(delta);
 		Constants.currentCharacter.PLAYER_WRIGHT.update(delta);
+		
+		buffs.update(gc, delta);
 		
 		if(dead) {
 			deathMenu.check(gc, delta);
@@ -455,6 +460,7 @@ public class Player extends Humanoid {
 		this.oxygen = Constants.currentCharacter.getOxygen();
 		
 		bp = new BlockPlacer(map, oc, this);
+		buffs = new BuffManager();
 		
 		Constants.MINI_MAP = false;
 	}
