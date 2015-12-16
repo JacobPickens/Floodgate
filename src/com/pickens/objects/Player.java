@@ -142,7 +142,7 @@ public class Player extends Humanoid {
 		Constants.currentCharacter.PLAYER_WLEFT.update(delta);
 		Constants.currentCharacter.PLAYER_WRIGHT.update(delta);
 		
-		buffs.update(gc, delta);
+		if(!Constants.INVENTORY_OPEN) buffs.update(gc, delta);
 		
 		if(dead) {
 			deathMenu.check(gc, delta);
