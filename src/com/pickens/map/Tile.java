@@ -1,22 +1,27 @@
 package com.pickens.map;
 
-import com.pickens.util.Constants;
-import com.pickens.util.Images;
 import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+
+import com.pickens.objects.Water;
+import com.pickens.util.Constants;
+import com.pickens.util.Images;
 
 public class Tile {
 	private int x;
 	private int y;
 	private int type;
 	private Image image;
+	private TileMap map;
 
-	public Tile(int x, int y, int type) {
+	public Tile(int x, int y, int type, TileMap map) {
 		this.x = x;
 		this.y = y;
 		this.type = type;
+		this.map = map;
 		switch (type) {
 		case Constants.EMPTY:
 			this.image = Images.RIM_SHEET.getSubImage(0, 0);
@@ -80,7 +85,11 @@ public class Tile {
 		if ((mapOffsetX + this.x >= -Constants.TILE_SIZE) && (mapOffsetX + this.x <= Constants.WIDTH + Constants.TILE_SIZE) && (mapOffsetY + this.y >= -Constants.TILE_SIZE)
 				&& (mapOffsetY + this.y <= Constants.HEIGHT + Constants.TILE_SIZE)) {
 			if (this.type == Constants.WATER) {
-				Images.WATER_ANIMATION.draw(mapOffsetX + this.x, mapOffsetY + this.y);
+				if(map.getRawData()[this.x/Constants.TILE_SIZE][this.y/Constants.TILE_SIZE] == Constants.WATER && map.getObjectController().getObject(this.x/Constants.TILE_SIZE, this.y/Constants.TILE_SIZE) instanceof Water && ((Water) map.getObjectController().getObject(this.x/Constants.TILE_SIZE, this.y/Constants.TILE_SIZE)).isFrozen()) {
+					Images.FROZEN_WATER.draw(mapOffsetX + this.x, mapOffsetY + this.y);
+				} else {
+					Images.WATER_ANIMATION.draw(mapOffsetX + this.x, mapOffsetY + this.y);
+				}
 			} else {
 				this.image.draw(mapOffsetX + this.x, mapOffsetY + this.y);
 			}

@@ -40,13 +40,13 @@ public class TileMap {
 		this.tile = new Tile[w][h];
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
-				this.tile[x][y] = new Tile(x * 64, y * 64, this.map[x][y]);
+				this.tile[x][y] = new Tile(x * 64, y * 64, this.map[x][y], this);
 			}
 		}
 	}
 
 	public void swap(int x, int y) {
-		this.tile[x][y] = new Tile(x * 64, y * 64, this.map[x][y]);
+		this.tile[x][y] = new Tile(x * 64, y * 64, this.map[x][y], this);
 	}
 
 	public void render(float mapOffsetX, float mapOffsetY, Graphics g) {
@@ -314,6 +314,10 @@ public class TileMap {
 
 	public int[][] getRawData() {
 		return this.map;
+	}
+	
+	public ObjectController getObjectController() {
+		return oc;
 	}
 
 	public int[] convertToTile(float x, float y) {

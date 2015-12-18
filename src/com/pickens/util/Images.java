@@ -14,6 +14,7 @@ public class Images {
 	
 	public static SpriteSheet WATER_ANIMATION_SHEET;
 	public static Animation WATER_ANIMATION;
+	public static Image FROZEN_WATER;
 	
 	public static Image RED_OPEN;
 	public static Image RED_CLOSED;
@@ -50,6 +51,7 @@ public class Images {
 			PLAYER_SHEET = new SpriteSheet("res/player_sheet.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			WATER_ANIMATION_SHEET = new SpriteSheet(RIM_SHEET.getSubImage(0, Constants.TILE_SIZE*1, Constants.TILE_SIZE*2, Constants.TILE_SIZE), Constants.TILE_SIZE, Constants.TILE_SIZE);
 			WATER_ANIMATION = new Animation(WATER_ANIMATION_SHEET, 1000);
+			FROZEN_WATER = RIM_SHEET.getSubImage(3, 1);
 			
 			RED_OPEN = RIM_SHEET.getSubImage(1, 2);
 			RED_CLOSED = RIM_SHEET.getSubImage(1, 3);

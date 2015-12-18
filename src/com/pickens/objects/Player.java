@@ -8,11 +8,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.pickens.buffs.BuffManager;
 import com.pickens.gui.DeathMenu;
 import com.pickens.gui.GuiManager;
 import com.pickens.gui.HealthBar;
 import com.pickens.gui.OxygenBar;
-import com.pickens.items.BuffManager;
 import com.pickens.items.Equipment;
 import com.pickens.items.Inventory;
 import com.pickens.items.SnorkelEquipment;
@@ -128,6 +128,7 @@ public class Player extends Humanoid {
 		bp.render(g);
 		inv.render(g);
 		gm.render(g);
+		buffs.render(g);
 		if(dead) {
 			deathMenu.render(g);
 		}
@@ -466,7 +467,7 @@ public class Player extends Humanoid {
 	}
 	
 	public boolean isUnderwater() {
-		if(this.map.getRawData()[this.x][this.y] == Constants.WATER) {
+		if(this.map.getRawData()[this.x][this.y] == Constants.WATER && this.map.getObjectController().getObject(this.x, this.y) instanceof Water && !((Water)this.map.getObjectController().getObject(this.x, this.y)).isFrozen()) {
 			return true;
 		}
 		return false;

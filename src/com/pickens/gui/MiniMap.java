@@ -14,6 +14,7 @@ import com.pickens.objects.FaucetStopper;
 import com.pickens.objects.Floodgate;
 import com.pickens.objects.ObjectController;
 import com.pickens.objects.Player;
+import com.pickens.objects.Water;
 import com.pickens.util.Constants;
 
 public class MiniMap extends GuiElement {
@@ -128,6 +129,11 @@ public class MiniMap extends GuiElement {
 				} else if (o instanceof Chest) {
 					g.setColor(Color.magenta);
 					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+				} else if(o instanceof Water) {
+					if(((Water)o).isFrozen()) {
+						g.setColor(Color.cyan);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					}
 				}
 			}
 		}
