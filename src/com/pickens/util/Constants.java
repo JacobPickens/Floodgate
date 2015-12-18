@@ -18,6 +18,7 @@ import com.pickens.items.LuckyUnderwearEquipment;
 import com.pickens.items.MajorItems;
 import com.pickens.items.MapItem;
 import com.pickens.items.MinorItems;
+import com.pickens.items.MinorPotionItem;
 import com.pickens.items.NormalItems;
 import com.pickens.items.RunningShoesEquipment;
 import com.pickens.items.SnorkelEquipment;
@@ -106,12 +107,19 @@ public class Constants {
 	
 	public static boolean FROZEN = false;
 	
+	public static final int RANDOM_STATE = 0;
+	public static final int MINOR_STATE = 1;
+	public static final int NORMAL_STATE = 2;
+	public static final int MAJOR_STATE = 3;
+	public static final int ULTRA_STATE = 4;
+	public static int CHEST_STATE = RANDOM_STATE;
+	
 	//////////////////// Player Stats ////////////////////
 	public static int MAP_NUMBER = 1;
 	
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
-	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL, NormalItems.SPEED_POTION};
+	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL, NormalItems.SPEED_POTION, NormalItems.MINOR_POTION, NormalItems.MINOR_POTION};
 	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER, MajorItems.ICE_POTION};
 	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS, UltraMajorItems.DUPLICATION};
 	
@@ -139,6 +147,8 @@ public class Constants {
 			return new SnorkelEquipment(x, y, p, inv);
 		case SPEED_POTION:
 			return new SpeedPotionItem(x, y, p, inv);
+		case MINOR_POTION:
+			return new MinorPotionItem(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}

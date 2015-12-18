@@ -52,19 +52,44 @@ public class Chest extends Object {
 			for (int x = 0; x < Player.inv.getWidth(); x++) {
 				Slot slot = Player.inv.getSlots()[x][y];
 				if(slot.getItem() == null) {
-					switch(type) {
-					case Item.MINOR:
-						slot.setItem(Constants.rollMinor(x, y, PlayState.player, Player.inv));
-						break;
-					case Item.NORMAL:
-						slot.setItem(Constants.rollNormal(x, y, PlayState.player, Player.inv));
-						break;
-					case Item.MAJOR:
-						slot.setItem(Constants.rollMajor(x, y, PlayState.player, Player.inv));
-						break;
-					case Item.ULTRA:
-						slot.setItem(Constants.rollUltra(x, y, PlayState.player, Player.inv));
-						break;
+					if(Constants.CHEST_STATE == Constants.RANDOM_STATE) {
+						switch (type) {
+						case Item.MINOR:
+							slot.setItem(Constants.rollMinor(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Item.NORMAL:
+							slot.setItem(Constants.rollNormal(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Item.MAJOR:
+							slot.setItem(Constants.rollMajor(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Item.ULTRA:
+							slot.setItem(Constants.rollUltra(x, y, PlayState.player,
+									Player.inv));
+							break;
+						}
+					} else { // Major, Minor, Normal, Ultra potions
+						switch (Constants.CHEST_STATE) {
+						case Constants.MINOR_STATE:
+							slot.setItem(Constants.rollMinor(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Constants.NORMAL_STATE:
+							slot.setItem(Constants.rollNormal(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Constants.MAJOR_STATE:
+							slot.setItem(Constants.rollMajor(x, y, PlayState.player,
+									Player.inv));
+							break;
+						case Constants.ULTRA_STATE:
+							slot.setItem(Constants.rollUltra(x, y, PlayState.player,
+									Player.inv));
+							break;
+						}
 					}
 					state = true;
 					break loop;
@@ -77,7 +102,7 @@ public class Chest extends Object {
 		oc.remove(this);
 		return state;
 	}
-
+	
 	public int getType() {
 		return type;
 	}

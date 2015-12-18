@@ -47,7 +47,7 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
-				s.setItem(new FreezePotionItem(x, y, p, this));
+				s.setItem(new MinorPotionItem(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
