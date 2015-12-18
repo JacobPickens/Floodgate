@@ -16,10 +16,12 @@ import com.pickens.items.Inventory;
 import com.pickens.items.Item;
 import com.pickens.items.LuckyUnderwearEquipment;
 import com.pickens.items.MajorItems;
+import com.pickens.items.MajorPotionItem;
 import com.pickens.items.MapItem;
 import com.pickens.items.MinorItems;
 import com.pickens.items.MinorPotionItem;
 import com.pickens.items.NormalItems;
+import com.pickens.items.NormalPotionItem;
 import com.pickens.items.RunningShoesEquipment;
 import com.pickens.items.SnorkelEquipment;
 import com.pickens.items.SpeedPotionItem;
@@ -120,8 +122,8 @@ public class Constants {
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
 	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL, NormalItems.SPEED_POTION, NormalItems.MINOR_POTION, NormalItems.MINOR_POTION};
-	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER, MajorItems.ICE_POTION};
-	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS, UltraMajorItems.DUPLICATION};
+	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER, MajorItems.ICE_POTION, MajorItems.NORMAL_POTION};
+	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS, UltraMajorItems.DUPLICATION, UltraMajorItems.MAJOR_POTION};
 	
 	private static Random r = new Random();
 	public static Item rollMinor(int x, int y, Player p, Inventory inv) {
@@ -176,6 +178,8 @@ public class Constants {
 			return new CarbonatedWaterItem(x, y, p, inv);
 		case ICE_POTION:
 			return new FreezePotionItem(x, y, p, inv);
+		case NORMAL_POTION:
+			return new NormalPotionItem(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}
@@ -189,6 +193,8 @@ public class Constants {
 			return new FlipFlopEquipment(x, y, p, inv);
 		case DUPLICATION:
 			return new DuplicationPotionItem(x, y, p, inv);
+		case MAJOR_POTION:
+			return new MajorPotionItem(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}
