@@ -104,7 +104,11 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {	
 		// Fix this!
 		pressed = gc.getInput().isKeyPressed(Input.KEY_ESCAPE);
-		if(pressed && !Constants.INVENTORY_OPEN && !Constants.MINI_MAP_FOCUSED) {
+		if(pressed && (Constants.REROLL == true || Constants.CLONE == true || Constants.REPAIR == true)) {
+			Constants.REROLL = false;
+			Constants.CLONE = false;
+			Constants.REPAIR = false;
+		} else if(pressed && !Constants.INVENTORY_OPEN && !Constants.MINI_MAP_FOCUSED) {
 			pm.toggle();
 		} else if(pressed) {
 			InventoryButton.toggle();

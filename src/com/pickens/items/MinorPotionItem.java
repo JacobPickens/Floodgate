@@ -17,7 +17,7 @@ public class MinorPotionItem extends Item {
 		setName("Potion of Minor");
 		setDescription("* Fills all chests with minor loot for 30 seconds.");
 		setImage(Images.POTIONS.getSubImage(1, 1));
-		setType(Item.MAJOR);
+		setType(Item.NORMAL);
 		map = PlayState.player.getMap();
 	}
 

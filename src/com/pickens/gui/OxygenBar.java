@@ -12,6 +12,7 @@ public class OxygenBar extends GuiElement {
 
 	int[] bubbles;
 	int lastOxygen;
+	int lastMax;
 	
 	Player p;
 	
@@ -20,6 +21,7 @@ public class OxygenBar extends GuiElement {
 		this.p = p;
 		
 		lastOxygen = p.getOxygen();
+		lastMax = p.getMaxOxygen();
 		// Set hearts
 		bubbles = new int[p.getOxygen()];
 		for(int i = 0; i < bubbles.length; i++) {
@@ -41,7 +43,11 @@ public class OxygenBar extends GuiElement {
 
 	@Override
 	public void update(GameContainer gc, int delta) {
-		for(int i = 0; i < Constants.currentCharacter.getOxygen(); i++) {
+		if(lastMax < p.getMaxOxygen()) {
+			bubbles = increasePool();
+			lastMax = p.getMaxOxygen();
+		}
+		for(int i = 0; i < p.getMaxOxygen(); i++) {
 			bubbles[i] = 0;
 		}
 		for(int i = 0; i < p.getOxygen(); i++) {
@@ -67,6 +73,15 @@ public class OxygenBar extends GuiElement {
 	@Override
 	public void onLeave() {
 		
+	}
+	
+	public int[] increasePool() {
+		int[] temp = new int[bubbles.length+1];
+		for (int i = 0; i < bubbles.length; i++) {
+			temp[i] = bubbles[i];
+		}
+		temp[p.getMaxOxygen()-1] = 1;
+		return temp;
 	}
 
 }

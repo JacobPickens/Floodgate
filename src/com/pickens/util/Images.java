@@ -38,6 +38,7 @@ public class Images {
 	public static Image BUBBLE;
 	
 	public static SpriteSheet ITEMS;
+	public static SpriteSheet ITEMS_2;
 	public static Image MAP;
 	
 	public static SpriteSheet TRAPS;
@@ -75,6 +76,7 @@ public class Images {
 			BUBBLE = new Image("res/bubble.png");
 			
 			ITEMS = new SpriteSheet("res/item_sheet.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
+			ITEMS_2 = new SpriteSheet("res/item_sheet_2.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			MAP = ITEMS.getSubImage(0, 0);
 		} catch (SlickException e) {
 			e.printStackTrace();

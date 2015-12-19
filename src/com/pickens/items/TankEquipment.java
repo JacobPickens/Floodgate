@@ -111,7 +111,7 @@ public class TankEquipment extends Equipment {
 	public void deplete() {
 		oxygen--;
 		setDescription("* Has " + (int)oxygen + " stored oxygen left.\n* Slows oxygen loss by " + (int)Math.ceil(speedEffect*.5) +".\n* Slows breathing by " + (int)Math.ceil(speedEffect*.3) + ".\n* Slows both swim and land speed by " + (int)Math.ceil(speedEffect*.3f) + ".\n* Disables sprinting.\n* Fillable with bubbles.\n(Equipment)(Body)");
-		if(oxygen == 0) {
+		if(oxygen <= 0) {
 			undo();
 			i.getBody().setItem(null);
 			setName(Equipment.getConditionString(getCondition()) + " Empty Scuba Tank");

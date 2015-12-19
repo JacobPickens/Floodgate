@@ -56,19 +56,19 @@ public class Water extends Object {
 		} else {
 			if (spreadCount >= 50) {
 				spreadCount = 0;
-				if (x > 0 && (map.getRawData()[x - 1][y] == Constants.WATER)
+				if (x > 0 && (map.getRawData()[x - 1][y] == Constants.WATER) && map.getObjectController().getObject(x - 1, y) instanceof Water
 						&& !((Water) map.getObjectController().getObject(x - 1, y)).isFrozen()) {
 					((Water) map.getObjectController().getObject(x - 1, y)).toggleFreeze();
 				}
-				if (x < map.getWidth() - 1 && map.getRawData()[x + 1][y] == Constants.WATER
+				if (x < map.getWidth() - 1 && map.getRawData()[x + 1][y] == Constants.WATER && map.getObjectController().getObject(x + 1, y) instanceof Water
 						&& !((Water) map.getObjectController().getObject(x + 1, y)).isFrozen()) {
 					((Water) map.getObjectController().getObject(x + 1, y)).toggleFreeze();
 				}
-				if (y > 0 && map.getRawData()[x][y - 1] == Constants.WATER
+				if (y > 0 && map.getRawData()[x][y - 1] == Constants.WATER && map.getObjectController().getObject(x, y - 1) instanceof Water
 						&& !((Water) map.getObjectController().getObject(x, y - 1)).isFrozen()) {
 					((Water) map.getObjectController().getObject(x, y - 1)).toggleFreeze();
 				}
-				if (y < map.getHeight() - 1 && map.getRawData()[x][y + 1] == Constants.WATER
+				if (y < map.getHeight() - 1 && map.getRawData()[x][y + 1] == Constants.WATER && map.getObjectController().getObject(x, y + 1) instanceof Water
 						&& !((Water) map.getObjectController().getObject(x, y + 1)).isFrozen()) {
 					((Water) map.getObjectController().getObject(x, y + 1)).toggleFreeze();
 				}
