@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.newdawn.slick.Color;
 
+import com.pickens.items.AnvilItem;
 import com.pickens.items.BarrierItem;
 import com.pickens.items.BubbleItem;
 import com.pickens.items.CarbonatedWaterItem;
@@ -15,6 +16,7 @@ import com.pickens.items.FreezePotionItem;
 import com.pickens.items.Inventory;
 import com.pickens.items.Item;
 import com.pickens.items.LuckyUnderwearEquipment;
+import com.pickens.items.LungEnlargementPills;
 import com.pickens.items.MajorItems;
 import com.pickens.items.MajorPotionItem;
 import com.pickens.items.MapItem;
@@ -102,6 +104,7 @@ public class Constants {
 	public static int PLACE_TYPE = NONE;
 	public static boolean REROLL = false;
 	public static boolean CLONE = false;
+	public static boolean REPAIR = false;
 	
 	public static boolean MINI_MAP = false;
 	public static boolean MINI_MAP_FOCUSED = false;
@@ -122,7 +125,8 @@ public class Constants {
 	//////////////////// Loot Pools ////////////////////
 	private static MinorItems[] minorPool = {MinorItems.BARRIER};
 	private static NormalItems[] normalPool = {NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.BUBBLE, NormalItems.WATER_SHOES, NormalItems.SNORKEL, NormalItems.SPEED_POTION, NormalItems.MINOR_POTION, NormalItems.MINOR_POTION};
-	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER, MajorItems.ICE_POTION, MajorItems.NORMAL_POTION};
+	private static MajorItems[] majorPool = {MajorItems.MAP, MajorItems.MAP, MajorItems.RUNNING_SHOES, MajorItems.FLIPPERS, MajorItems.DICE, MajorItems.TANK, MajorItems.UNDERWEAR, MajorItems.CARBONATED_WATER, MajorItems.ICE_POTION, MajorItems.NORMAL_POTION, MajorItems.ANVIL, MajorItems.LUNG_PILLS};
+	
 	private static UltraMajorItems[] ultraPool = {UltraMajorItems.FLIP_FLOPS, UltraMajorItems.DUPLICATION, UltraMajorItems.MAJOR_POTION};
 	
 	private static Random r = new Random();
@@ -180,6 +184,10 @@ public class Constants {
 			return new FreezePotionItem(x, y, p, inv);
 		case NORMAL_POTION:
 			return new NormalPotionItem(x, y, p, inv);
+		case ANVIL:
+			return new AnvilItem(x, y, p, inv);
+		case LUNG_PILLS:
+			return new LungEnlargementPills(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}

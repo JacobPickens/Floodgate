@@ -113,7 +113,7 @@ public class Slot {
 		}
 		
 		if(ticker > 10) {
-			if(!Constants.REROLL && !Constants.CLONE) {
+			if(!Constants.REROLL && !Constants.CLONE && !Constants.REPAIR) {
 				if(left && clickCount == 1 && hasItem() && getItem() instanceof TankEquipment && inv.getInventoryManager().getItem() instanceof BubbleItem) {
 					((TankEquipment) getItem()).refill(((BubbleItem)inv.getInventoryManager().getItem()).amount);
 					inv.getInventoryManager().setItem(null);
@@ -153,6 +153,16 @@ public class Slot {
 							e.printStackTrace();
 						}
 						Constants.CLONE = false;
+					}
+				}
+			} else if(Constants.REPAIR) {
+				if(left && clickCount == 1) {
+					if(hasItem()) {
+						if(item instanceof Equipment) {
+							Equipment i = (Equipment) item;
+							i.setDurability(i.getMaxDurability());
+							Constants.REPAIR = false;
+						}
 					}
 				}
 			}

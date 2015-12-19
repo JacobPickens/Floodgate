@@ -47,12 +47,12 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
-				s.setItem(new MinorPotionItem(x, y, p, this));
+				s.setItem(new LungEnlargementPills(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
-		slots[0][0].setItem(new MapItem(0, 0, p, this));
-		slots[1][0].setItem(new SpeedPotionItem(1, 0, p, this));
+		slots[0][0].setItem(new AnvilItem(0, 0, p, this));
+		//slots[1][0].setItem(new SpeedPotionItem(1, 0, p, this));
 		remove = new RemoveSlot(-1, height-1, this.x, this.y, this);
 		head = new HeadSlot(0, -1, 5, Constants.HEIGHT-133, this);
 		body = new BodySlot(1, -1, 5, Constants.HEIGHT-133, this);
@@ -102,6 +102,10 @@ public class Inventory {
 			if(Constants.CLONE) {
 				g.setColor(Color.white);
 				Fonts.MENU_TEXT.drawString(Constants.WIDTH/2 - Fonts.MENU_TEXT.getWidth("Click an item to duplicate.")/2, 64, "Click an item to duplicate.");
+			}
+			if(Constants.REPAIR) {
+				g.setColor(Color.white);
+				Fonts.MENU_TEXT.drawString(Constants.WIDTH/2 - Fonts.MENU_TEXT.getWidth("Click an item to repair.")/2, 64, "Click an item to repair.");
 			}
 			im.render(g);
 			ii.render(g);

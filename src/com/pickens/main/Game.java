@@ -53,7 +53,7 @@ public class Game extends StateBasedGame {
         } else {
         	String[] values = {"2000x1125", "1500x844", "1000x563"};
 
-        	Object selected = JOptionPane.showInputDialog(null, "Please pick a windowed size:", "Windowed Mode", JOptionPane.DEFAULT_OPTION, null, values, "1000x563");
+        	Object selected = JOptionPane.showInputDialog(null, "Please pick a windowed size:", "Windowed Mode", JOptionPane.DEFAULT_OPTION, null, values, "1500x844");
         	if ( selected != null ){//null if the user cancels. 
         	    String selectedString = selected.toString();
         	    switch(selectedString) {

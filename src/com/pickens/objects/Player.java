@@ -30,6 +30,7 @@ public class Player extends Humanoid {
 	private int health;
 	private int drownSpeed;
 	private int breatheSpeed;
+	private int maxOxygen;
 	
 	boolean left = false;
 	boolean right = false;
@@ -79,6 +80,7 @@ public class Player extends Humanoid {
 		color = c.getColor();
 		drownSpeed = 60;
 		breatheSpeed = 30;
+		maxOxygen = Constants.currentCharacter.getOxygen();
 		
 		gm.setJustification(GuiManager.LEFT_JUST);
 		gm.add(new HealthBar(10, 10, gm, this));
@@ -415,7 +417,7 @@ public class Player extends Humanoid {
 		this.deplete += 1;
 		if (this.deplete >= breatheSpeed) {
 			this.deplete = 0;
-			if(this.oxygen < Constants.currentCharacter.getOxygen()) {
+			if(this.oxygen < this.maxOxygen) {
 				this.oxygen += 1;
 			}
 		}
@@ -461,7 +463,6 @@ public class Player extends Humanoid {
 		this.oxygen = Constants.currentCharacter.getOxygen();
 		
 		bp = new BlockPlacer(map, oc, this);
-		buffs = new BuffManager();
 		
 		Constants.MINI_MAP = false;
 	}
@@ -503,5 +504,13 @@ public class Player extends Humanoid {
 	
 	public BuffManager getBuffs() {
 		return buffs;
+	}
+
+	public int getMaxOxygen() {
+		return maxOxygen;
+	}
+
+	public void setMaxOxygen(int maxOxygen) {
+		this.maxOxygen = maxOxygen;
 	}
 }
