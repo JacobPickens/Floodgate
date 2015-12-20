@@ -16,7 +16,7 @@ import com.pickens.items.FreezePotionItem;
 import com.pickens.items.Inventory;
 import com.pickens.items.Item;
 import com.pickens.items.LuckyUnderwearEquipment;
-import com.pickens.items.LungEnlargementPills;
+import com.pickens.items.LungEnlargementPillsItem;
 import com.pickens.items.MajorItems;
 import com.pickens.items.MajorPotionItem;
 import com.pickens.items.MapItem;
@@ -187,7 +187,7 @@ public class Constants {
 		case ANVIL:
 			return new AnvilItem(x, y, p, inv);
 		case LUNG_PILLS:
-			return new LungEnlargementPills(x, y, p, inv);
+			return new LungEnlargementPillsItem(x, y, p, inv);
 		default:
 			return new BarrierItem(x, y, p, inv);
 		}

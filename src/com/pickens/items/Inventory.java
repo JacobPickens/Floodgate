@@ -47,12 +47,23 @@ public class Inventory {
 				} else if(r.nextInt(100) < 5) {
 					s.setItem(new BubbleItem(x, y, p, this));
 				}
-				s.setItem(new LungEnlargementPills(x, y, p, this));
+				//s.setItem(new LungEnlargementPills(x, y, p, this));
 				slots[x][y] = s;
 			}
 		}
-		slots[0][0].setItem(new AnvilItem(0, 0, p, this));
-		//slots[1][0].setItem(new SpeedPotionItem(1, 0, p, this));
+//		slots[0][0].setItem(new LuckyUnderwearEquipment(0, 0, p, this));
+//		slots[1][0].setItem(new FlipFlopEquipment(1, 0, p, this));
+//		slots[2][0].setItem(new WaterShoesEquipment(2, 0, p, this));
+//		slots[3][0].setItem(new SnorkelEquipment(3, 0, p, this));
+//		slots[0][1].setItem(new SpeedPotionItem(0, 1, p, this));
+//		slots[1][1].setItem(new CarbonatedWaterItem(1, 1, p, this));
+//		slots[2][1].setItem(new DuplicationPotionItem(2, 1, p, this));
+//		slots[3][1].setItem(new FreezePotionItem(3, 1, p, this));
+//		slots[0][2].setItem(new MinorPotionItem(0, 2, p, this));
+//		slots[1][2].setItem(new NormalPotionItem(1, 2, p, this));
+//		slots[2][2].setItem(new MajorPotionItem(2, 2, p, this));
+//		slots[3][2].setItem(new AnvilItem(3, 2, p, this));
+//		slots[1][3].setItem(new LungEnlargementPillsItem(1, 3, p, this));
 		remove = new RemoveSlot(-1, height-1, this.x, this.y, this);
 		head = new HeadSlot(0, -1, 5, Constants.HEIGHT-133, this);
 		body = new BodySlot(1, -1, 5, Constants.HEIGHT-133, this);

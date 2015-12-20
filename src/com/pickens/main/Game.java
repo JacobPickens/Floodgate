@@ -75,7 +75,7 @@ public class Game extends StateBasedGame {
         	}
         }
 		
-        g = new Game("Floodgate v0.0.6");
+        g = new Game("Floodgate v0.0.7");
         
 		AppGameContainer appgc;
 		try {

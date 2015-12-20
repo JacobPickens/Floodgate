@@ -1,13 +1,6 @@
 package com.pickens.items;
 
-import java.util.Random;
-
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.pickens.objects.Player;
-import com.pickens.states.PlayState;
-import com.pickens.util.Constants;
 import com.pickens.util.Images;
 
 public class SnorkelEquipment extends Equipment {

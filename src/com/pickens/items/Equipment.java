@@ -3,7 +3,6 @@ package com.pickens.items;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import com.pickens.objects.Player;
@@ -130,6 +129,25 @@ public abstract class Equipment extends Item {
 	
 	public void addDurability(int a) {
 		durability += a;
+		if(durability <= 0) {
+			switch(getGearType()) {
+			case HEAD:
+				i.getHead().setItem(null);
+				onBreak();
+				undo();
+				break;
+			case BODY:
+				i.getBody().setItem(null);
+				onBreak();
+				undo();
+				break;
+			case FEET:
+				i.getFeet().setItem(null);
+				onBreak();
+				undo();
+				break;
+			}
+		}
 	}
 
 }
