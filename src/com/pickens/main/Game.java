@@ -2,6 +2,7 @@ package com.pickens.main;
 
 import static com.pickens.util.Constants.GAME_STATE;
 import static com.pickens.util.Constants.MENU_STATE;
+import static com.pickens.util.Constants.MODE_STATE;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,6 +26,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.pickens.states.MenuState;
+import com.pickens.states.ModeState;
 import com.pickens.states.PlayState;
 import com.pickens.util.Constants;
 import com.pickens.util.Images;
@@ -32,6 +34,7 @@ import com.pickens.util.Images;
 public class Game extends StateBasedGame {
 
 	public static final String VERSION = "v0.0.8";
+	public static boolean ONLINE = false;
 	private static Game g;
 	
 	// Launcher GUI
@@ -44,22 +47,24 @@ public class Game extends StateBasedGame {
 	public Game(String name) {
 		super(name);
 		
+		this.addState(new ModeState());
 		this.addState(new MenuState());
 		this.addState(new PlayState());
 	}
 	
 	public static void setState(int state) {
-		g.enterState (state);
+		g.enterState(state);
 	}
 
 	public void initStatesList(GameContainer gc) throws SlickException {
 		Images.load();
 		Constants.loadClasses();
 		
+		this.getState(MODE_STATE).init(gc, this);
 		this.getState(MENU_STATE).init(gc, this);
 		this.getState(GAME_STATE).init(gc, this);
 		
-		this.enterState(MENU_STATE);
+		this.enterState(MODE_STATE);
 	}
 	
 	public static void main(String[] args) {		
@@ -74,10 +79,12 @@ public class Game extends StateBasedGame {
 		jumbotron = new JEditorPane();
 		jumbotron.setEditable(false);
 		try {
-			jumbotron.setPage("http://73.9.75.150:8886/floodgate/index.htmldasd");
+			jumbotron.setPage("http://73.9.75.150:8886/floodgate/index.html");
+			ONLINE = true;
 		} catch (IOException e) {
 			jumbotron.setContentType("text/html");
 			jumbotron.setText("<html><br/><br/><center><strong>You're offline.<strong><center></html>");
+			ONLINE = false;
 		}
 		Dimension size = new Dimension(frame.getWidth(), (int) ((int)frame.getHeight()/1.11));
 		jumbotron.setBounds(0, 0, (int)size.getWidth(), (int)size.getHeight());
@@ -88,7 +95,7 @@ public class Game extends StateBasedGame {
 		fullscreen.setFont(font);
 		fullscreen.setSelected(true);
 		
-		String[] values = {"2000x1125", "1500x844", "1000x563"};
+		String[] values = {"1000x563", "1500x844", "2000x1125"};
 		resolution = new JComboBox<String>(values);
 		resolution.setFont(font);
 		resolution.setEnabled(false);
@@ -110,36 +117,18 @@ public class Game extends StateBasedGame {
 		});
 		
 		launch.addMouseListener(new MouseListener() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				launchGame();
 			}
-
 			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void mousePressed(MouseEvent e) {}
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void mouseReleased(MouseEvent e) {}
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void mouseEntered(MouseEvent e) {}
 			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		// Adding to frame
@@ -151,7 +140,10 @@ public class Game extends StateBasedGame {
 		frame.setVisible(true);
 	}
 	
-	private static void launchGame() {		
+	private static void launchGame() {
+		frame.setVisible(false);
+		frame.dispose();
+		
         if(fullscreen.isSelected()) {
         	Constants.WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     		Constants.HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -187,9 +179,6 @@ public class Game extends StateBasedGame {
 		} catch(SlickException e) {
 			e.printStackTrace();
 		}
-		
-		frame.setVisible(false);
-		frame.dispose();
 	}
 	
 }

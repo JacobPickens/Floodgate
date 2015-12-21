@@ -36,6 +36,7 @@ public class Constants {
 
 	public static final int MENU_STATE = 0;
 	public static final int GAME_STATE = 1;
+	public static final int MODE_STATE = 2;
 	
 	public static int WIDTH = 1500;
 	public static int HEIGHT = 800;
