@@ -24,7 +24,7 @@ public class Tile {
 		this.map = map;
 		switch (type) {
 		case Constants.EMPTY:
-			this.image = Images.RIM_SHEET.getSubImage(0, 0);
+			this.image = Images.ACCENTS.getSubImage(3,2);
 			break;
 		case Constants.WALL:
 			this.image = Images.WALL_SHEET.getSubImage(new Random().nextInt(3) + 1, new Random().nextInt(3));
@@ -33,50 +33,59 @@ public class Tile {
 			this.image = Images.WALL_SHEET.getSubImage(new Random().nextInt(4), 3);
 			break;
 		case Constants.RIM_TOP:
-			this.image = Images.RIM_SHEET.getSubImage(1, 0);
+			this.image = Images.ACCENTS.getSubImage(1, 0);
 			break;
-		case 4:
-			this.image = Images.RIM_SHEET.getSubImage(0, 0);
+		case Constants.RIM_TOP_CORNER_LEFT:
+			this.image = Images.ACCENTS.getSubImage(0, 0);
 			break;
-		case 5:
-			this.image = Images.RIM_SHEET.getSubImage(2, 0);
+		case Constants.RIM_TOP_CORNER_RIGHT:
+			this.image = Images.ACCENTS.getSubImage(2, 0);
 			break;
-		case 6:
-			this.image = Images.RIM_SHEET.getSubImage(0, 1);
+		case Constants.RIM_LEFT:
+			this.image = Images.ACCENTS.getSubImage(0, 1);
 			break;
-		case 7:
-			this.image = Images.RIM_SHEET.getSubImage(2, 1);
+		case Constants.RIM_RIGHT:
+			this.image = Images.ACCENTS.getSubImage(2, 1);
 			break;
-		case 8:
-			this.image = Images.RIM_SHEET.getSubImage(0, 2);
+		case Constants.RIM_BOTTOM_CORNER_LEFT:
+			this.image = Images.ACCENTS.getSubImage(0, 2);
 			break;
-		case 9:
-			this.image = Images.RIM_SHEET.getSubImage(2, 2);
+		case Constants.RIM_BOTTOM_CORNER_RIGHT:
+			this.image = Images.ACCENTS.getSubImage(2, 2);
 			break;
-		case 10:
-			this.image = Images.RIM_SHEET.getSubImage(1, 2);
+		case Constants.RIM_BOTTOM:
+			this.image = Images.ACCENTS.getSubImage(1, 2);
 			break;
-		case 11:
-			this.image = Images.RIM_SHEET.getSubImage(2, 3);
+		case Constants.RIM_TOP_SHARP_CORNER_LEFT:
+			this.image = Images.ACCENTS.getSubImage(2, 3);
 			break;
-		case 12:
-			this.image = Images.RIM_SHEET.getSubImage(3, 3);
+		case Constants.RIM_TOP_SHARP_CORNER_RIGHT:
+			this.image = Images.ACCENTS.getSubImage(3, 3);
 			break;
-		case 13:
-			this.image = Images.RIM_SHEET.getSubImage(1, 3);
+		case Constants.RIM_BOTTOM_SHARP_CORNER_LEFT:
+			this.image = Images.ACCENTS.getSubImage(1, 3);
 			break;
-		case 14:
-			this.image = Images.RIM_SHEET.getSubImage(0, 3);
+		case Constants.RIM_BOTTOM_SHARP_CORNER_RIGHT:
+			this.image = Images.ACCENTS.getSubImage(0, 3);
 			break;
-		case 15:
+		case Constants.WATER:
 			break;
-		case 16:
+		case Constants.STOPPER:
 			break;
 		case Constants.BARRIER:
 			this.image = Images.WALL_SHEET.getSubImage(new Random().nextInt(3) + 1, new Random().nextInt(3));
 			break;
 		case Constants.CHEST:
 			this.image = Images.RIM_SHEET.getSubImage(0,3);
+			break;
+		case Constants.WALL_CORNER_RIGHT:
+			this.image = Images.WALL_SHEET.getSubImage(3, new Random().nextInt(3));
+			break;
+		case Constants.WALL_CORNER_LEFT:
+			this.image = Images.WALL_SHEET.getSubImage(0, new Random().nextInt(3));
+			break;
+		case Constants.RIM_TUNNEL:
+			this.image = Images.ACCENTS.getSubImage(3, 0);
 			break;
 		}
 	}

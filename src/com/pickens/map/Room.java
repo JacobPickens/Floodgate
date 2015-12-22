@@ -4,7 +4,7 @@ import com.pickens.util.Point;
 
 public class Room {
 
-	private static final int ROOM_PADDING = 2;
+	private static final int ROOM_PADDING = 8;
 	
 	public int x1, x2, y1, y2, w, h;
 	public Point center = new Point(0, 0);

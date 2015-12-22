@@ -47,8 +47,8 @@ public class Game extends StateBasedGame {
 	public Game(String name) {
 		super(name);
 		
-		this.addState(new ModeState());
 		this.addState(new MenuState());
+		this.addState(new ModeState());
 		this.addState(new PlayState());
 	}
 	
@@ -64,7 +64,7 @@ public class Game extends StateBasedGame {
 		this.getState(MENU_STATE).init(gc, this);
 		this.getState(GAME_STATE).init(gc, this);
 		
-		this.enterState(MODE_STATE);
+		this.enterState(MENU_STATE);
 	}
 	
 	public static void main(String[] args) {		

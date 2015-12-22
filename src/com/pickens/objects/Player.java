@@ -147,9 +147,13 @@ public class Player extends Humanoid {
 		
 		if(!Constants.INVENTORY_OPEN) buffs.update(gc, delta);
 		
+		if(gc.getInput().isKeyPressed(Input.KEY_R)) {
+			PlayState.win();
+		}
+		
 		if(dead) {
 			deathMenu.check(gc, delta);
-		} else {		
+		} else {	
 			if(!Constants.PLAYER_PAUSED) {
 				if(gc.getInput().isKeyPressed(Input.KEY_0)) {
 					health--;

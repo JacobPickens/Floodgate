@@ -1,5 +1,6 @@
 package com.pickens.states;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -93,6 +94,8 @@ public class PlayState extends BasicGameState {
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		g.setBackground(new Color(0x41392c));
+		
 		map.render(Constants.mapOffsetX, Constants.mapOffsetY, g);
 		objects.render(g);
 		player.render(g);

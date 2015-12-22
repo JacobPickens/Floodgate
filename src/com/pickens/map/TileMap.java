@@ -6,16 +6,14 @@ import java.util.Random;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import com.pickens.objects.Accent;
 import com.pickens.objects.Chest;
 import com.pickens.objects.FaucetStopper;
 import com.pickens.objects.Floodgate;
 import com.pickens.objects.ObjectController;
-import com.pickens.objects.PressurePlate;
-import com.pickens.objects.SpikeTrap;
-import com.pickens.objects.TriggeredTrap;
 import com.pickens.objects.Water;
-import com.pickens.objects.WaterBombTrap;
 import com.pickens.util.Constants;
+import com.pickens.util.Images;
 
 public class TileMap {
 	Random r = new Random();
@@ -27,8 +25,10 @@ public class TileMap {
 	private int[][] map;
 	private int numberOfRooms;
 	private ObjectController oc;
+	private ObjectController accents;
 
 	public TileMap(ObjectController oc) {
+		accents = new ObjectController();
 		this.numberOfRooms = 10 + (int)Math.floor(Constants.MAP_NUMBER*.2);
 		if(this.numberOfRooms > 15) {
 			numberOfRooms = 15;
@@ -55,6 +55,7 @@ public class TileMap {
 				this.tile[x][y].render(mapOffsetX, mapOffsetY, g);
 			}
 		}
+		accents.render(g);
 	}
 
 	int i = 0;
@@ -74,26 +75,289 @@ public class TileMap {
 		for (this.i = 0; this.i < this.numberOfRooms; this.i += 1) {
 			createRoom();
 		}
+		
+//		for (int y = 0; y < h; y++) {
+//			for (int x = 0; x < w; x++) {
+//				if (this.map[x][y] == 0) {
+//					if ((x > 0) && (this.map[(x - 1)][y] == 2)) {
+//						this.map[(x - 1)][y] = 1;
+//					}
+//					if ((x < w - 1) && (this.map[(x + 1)][y] == 2)) {
+//						this.map[(x + 1)][y] = 1;
+//					}
+//					if ((y > 0) && (this.map[x][(y - 1)] == 2)) {
+//						this.map[x][(y - 1)] = 1;
+//					}
+//					if ((y < h - 1) && (this.map[x][(y + 1)] == 2)) {
+//						this.map[x][(y + 1)] = 1;
+//					}
+//				}
+//			}
+//		}
+		
+		//beautify();
+		advancedBeautify();
+		
+	}
+	
+	public void beautify() {
+		
+		// Walls
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				if (this.map[x][y] == 0) {
-					if ((x > 0) && (this.map[(x - 1)][y] == 2)) {
-						this.map[(x - 1)][y] = 1;
-					}
-					if ((x < w - 1) && (this.map[(x + 1)][y] == 2)) {
-						this.map[(x + 1)][y] = 1;
-					}
 					if ((y > 0) && (this.map[x][(y - 1)] == 2)) {
-						this.map[x][(y - 1)] = 1;
+						this.map[x][(y - 1)] = Constants.WALL;
+					}
+					if ((x > 0) && (this.map[(x - 1)][y] == 2 || this.map[(x - 1)][y] == Constants.WALL)) {
+						this.map[(x - 1)][y] = Constants.RIM_LEFT;
+					}
+					if ((x < w - 1) && (this.map[(x + 1)][y] == 2 || this.map[(x + 1)][y] == Constants.WALL)) {
+						this.map[(x + 1)][y] = Constants.RIM_RIGHT;
 					}
 					if ((y < h - 1) && (this.map[x][(y + 1)] == 2)) {
-						this.map[x][(y + 1)] = 1;
+						this.map[x][(y + 1)] = Constants.RIM_BOTTOM;
+					}
+				}
+			}
+		}
+		
+		// Wall toppers
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == Constants.WALL) {
+					if ((y > 0) && (this.map[x][(y - 1)] == 2)) {
+						this.map[x][(y - 1)] = Constants.RIM_TOP;
+					}
+					if ((x < w-1) && (this.map[x+1][y] == Constants.EMPTY)) {
+						this.map[x+1][y] = Constants.RIM_RIGHT;
+					}
+					if ((x > 0) && (this.map[x-1][y] == Constants.EMPTY)) {
+						this.map[x-1][y] = Constants.RIM_LEFT;
+					}
+				}
+			}
+		}
+		
+		// Corners
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == Constants.FLOOR) {
+					// Wall Corners
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_LEFT && this.map[(x - 2)][y] == Constants.WALL)) {
+						this.map[(x - 1)][y] = Constants.WALL_CORNER_RIGHT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.RIM_RIGHT && this.map[(x + 2)][y] == Constants.WALL)) {
+						this.map[(x + 1)][y] = Constants.WALL_CORNER_LEFT;
+					}
+					// Rim Corners
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_LEFT && this.map[(x - 2)][y] == Constants.RIM_TOP)) {
+						this.map[(x - 1)][y] = Constants.RIM_BOTTOM_SHARP_CORNER_LEFT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.RIM_RIGHT && this.map[(x + 2)][y] == Constants.RIM_TOP)) {
+						this.map[(x + 1)][y] = Constants.RIM_BOTTOM_SHARP_CORNER_RIGHT;
+					}
+				} else if(this.map[x][y] == Constants.RIM_BOTTOM) {
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_BOTTOM && this.map[x][y+1] == Constants.RIM_LEFT)) {
+						this.map[(x)][y] = Constants.RIM_TOP_SHARP_CORNER_RIGHT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.RIM_BOTTOM && this.map[(x)][y+1] == Constants.RIM_RIGHT)) {
+						this.map[(x)][y] = Constants.RIM_TOP_SHARP_CORNER_LEFT;
+					}
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.FLOOR && this.map[x][y-1] == Constants.FLOOR)) {
+						this.map[(x)][y] = Constants.RIM_TOP_SHARP_CORNER_LEFT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.FLOOR && this.map[(x)][y-1] == Constants.FLOOR)) {
+						this.map[(x)][y] = Constants.RIM_TOP_SHARP_CORNER_RIGHT;
+					}
+				} else if(this.map[x][y] == Constants.EMPTY) {
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_TOP && this.map[(x)][y+1] == Constants.RIM_RIGHT)) {
+						this.map[x][y] = Constants.RIM_TOP_CORNER_RIGHT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.RIM_TOP && this.map[(x)][y+1] == Constants.RIM_LEFT)) {
+						this.map[x][y] = Constants.RIM_TOP_CORNER_LEFT;
+					}
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_BOTTOM && this.map[(x)][y-1] == Constants.RIM_RIGHT)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_CORNER_RIGHT;
+					}
+					if ((x < w-1) && (this.map[(x + 1)][y] == Constants.RIM_BOTTOM && this.map[(x)][y-1] == Constants.RIM_LEFT)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_CORNER_LEFT;
+					}
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.RIM_TOP_SHARP_CORNER_LEFT && this.map[(x)][y-1] == Constants.RIM_RIGHT)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_CORNER_RIGHT;
+					}	
+					if ((x > 0) && (y > 0) && (this.map[(x - 1)][y-1] == Constants.FLOOR)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_CORNER_RIGHT;
+					}
+					if ((x < w-1) && (y > 0) && (this.map[(x + 1)][y-1] == Constants.FLOOR)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_CORNER_LEFT;
+					}
+				} else if(this.map[x][y] == Constants.RIM_LEFT) {
+					if ((x > 0) && (y > 0) && (this.map[(x - 1)][y] == Constants.RIM_TOP && this.map[(x)][y-1] == Constants.RIM_TOP_CORNER_RIGHT)) {
+						this.map[x][y] = Constants.RIM_BOTTOM_SHARP_CORNER_RIGHT;
+					}
+				} else if(this.map[x-1][y] == Constants.FLOOR && this.map[x][y-1] == Constants.WALL) {
+					this.map[x][y] = Constants.WALL;
+				}
+				
+				if((x > 0 && x < w - 1) && (y > 0 && y < h-1) && this.map[x][y] != Constants.FLOOR && (this.map[x][y-1] == Constants.FLOOR) && (this.map[x][y+1] == Constants.FLOOR)) {
+					this.map[x][y] = Constants.WALL;
+				}
+			}
+		}
+		
+		// Touch Ups
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == Constants.RIM_RIGHT) {
+					// Wall Corners
+					if ((x > 0) && (this.map[(x - 1)][y] == Constants.FLOOR && this.map[x][y+1] == Constants.FLOOR)) {
+						this.map[(x)][y] = Constants.WALL_CORNER_LEFT;
+					}
+				}
+				
+				
+				if((x > 0 && x < w - 1) && (y > 0 && y < h-1) && this.map[x][y] != Constants.FLOOR && (this.map[x][y+1] == Constants.WALL) && (this.map[x][y-1] == Constants.FLOOR)) {
+					this.map[x][y] = Constants.RIM_TUNNEL;
+				}
+			}
+		}
+		
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == Constants.WALL_CORNER_LEFT) {
+					// Wall Corners
+					if ((x < w-1 && y > 0) && (this.map[(x + 1)][y] != Constants.RIM_RIGHT && this.map[x][y-1] == Constants.RIM_RIGHT)) {
+						this.map[(x+1)][y] = Constants.RIM_RIGHT;
+						this.map[(x)][y-1] = Constants.RIM_BOTTOM_SHARP_CORNER_RIGHT;
+						this.map[(x+1)][y-1] = Constants.RIM_TOP_CORNER_LEFT;
 					}
 				}
 			}
 		}
 	}
 
+	public void advancedBeautify() {
+		// Walls
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == 0) {
+					if ((y > 0) && (this.map[x][(y - 1)] == 2)) {
+						this.map[x][(y - 1)] = Constants.WALL;
+					}
+					if ((x > 0) && (this.map[(x - 1)][y] == 2)) {
+						accents.add(new Accent(x - 1, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 1)));
+					}
+					if ((x < w - 1) && (this.map[(x + 1)][y] == 2)) {
+						accents.add(new Accent(x + 1, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(2, 1)));
+					}
+					if ((y < h - 1) && (this.map[x][(y + 1)] == 2)) {
+						accents.add(new Accent(x, y+1, this, accents, Images.ADVANCED_ACCENTS.getSubImage(1, 2)));
+					}
+				}
+			}
+		}
+
+		// Wall toppers
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if (this.map[x][y] == Constants.WALL) {
+					if ((y > 0) && (this.map[x][(y - 1)] == 2)) {
+						accents.add(new Accent(x, y-1, this, accents, Images.ADVANCED_ACCENTS.getSubImage(1, 0)));
+					}
+					if ((x > 0) && (this.map[x-1][(y)] == Constants.EMPTY)) {
+						accents.add(new Accent(x-1, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 1)));
+					}
+					if ((x < w-1) && (this.map[x+1][(y)] == Constants.EMPTY)) {
+						accents.add(new Accent(x+1, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(2, 1)));
+					}
+				}
+			}
+		}
+		
+		// Sharp Corners
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if ((y > 0 && x < w-1) && (this.map[x][(y - 1)] == Constants.FLOOR && this.map[x + 1][(y)] == Constants.FLOOR)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 3)));
+				}
+				if ((y > 0 && x > 0) && (this.map[x][(y - 1)] == Constants.FLOOR && this.map[x - 1][(y)] == Constants.FLOOR)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(2, 3)));
+				}
+				if ((y < h-1 && x < w-1) && (this.map[x][(y + 1)] == Constants.WALL && this.map[x + 1][(y)] == Constants.FLOOR)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(1, 3)));
+				}
+				if ((y < h-1 && x > 0) && (this.map[x][(y + 1)] == Constants.WALL && this.map[x - 1][(y)] == Constants.FLOOR)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 3)));
+				}
+				if ((y < h-1 && x < w-1) && (this.map[x][(y + 1)] == Constants.WALL && this.map[x + 1][(y)] == Constants.WALL)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(1, 3)));
+				}
+				if ((y < h-1 && x > 0) && (this.map[x][(y + 1)] == Constants.WALL && this.map[x - 1][(y)] == Constants.WALL)) {
+					accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 3)));
+				}
+			}
+		}
+		
+		// Soft Corners
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if(this.map[x][y] == Constants.EMPTY) {
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y-1] == Constants.EMPTY && this.map[x+1][y] == Constants.EMPTY && this.map[x+1][y-1] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 2)));
+					}
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y-1] == Constants.EMPTY && this.map[x-1][y] == Constants.EMPTY && this.map[x-1][y-1] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(2, 2)));
+					}
+					
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y+1] == Constants.EMPTY && this.map[x+1][y] == Constants.EMPTY && this.map[x+1][y+1] == Constants.WALL)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(0, 0)));
+					}
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y+1] == Constants.EMPTY && this.map[x-1][y] == Constants.EMPTY && this.map[x-1][y+1] == Constants.WALL)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(2, 0)));
+					}
+				}
+			}
+		}
+		
+		// Tunnel Caps
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if(this.map[x][y] == Constants.EMPTY) {
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y-1] == Constants.FLOOR && (this.map[x][y+1] == Constants.FLOOR || this.map[x][y+1] == Constants.WALL) && this.map[x+1][y] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 0)));
+					}
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y-1] == Constants.FLOOR && (this.map[x][y+1] == Constants.FLOOR || this.map[x][y+1] == Constants.WALL) && this.map[x-1][y] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 0).getFlippedCopy(true, false)));
+					}
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x-1][y] == Constants.FLOOR && (this.map[x+1][y] == Constants.FLOOR) && this.map[x][y+1] == Constants.WALL)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 1)));
+					}
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x-1][y] == Constants.FLOOR && (this.map[x+1][y] == Constants.FLOOR) && this.map[x][y-1] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 1).getFlippedCopy(false, true)));
+					}
+					
+					if((y > 0 && y < h-1 && x > 0 && x < w-1) && (this.map[x][y-1] == Constants.FLOOR && (this.map[x][y+1] == Constants.FLOOR || this.map[x][y+1] == Constants.WALL) && this.map[x-1][y] == Constants.FLOOR && this.map[x+1][y] == Constants.FLOOR)) {
+						accents.add(new Accent(x, y, this, accents, Images.ADVANCED_ACCENTS.getSubImage(3, 2)));
+					}
+				}
+			}
+		}
+		
+		// Wall Corners must be last
+		// Wall Corners
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				if((y > 0 && x > 0) && this.map[x][y] == Constants.WALL && (this.map[x-1][(y)] == Constants.FLOOR)) {
+					this.map[x][y] = Constants.WALL_CORNER_LEFT;
+				}
+				if((y > 0 && x < w-1) && this.map[x][y] == Constants.WALL && (this.map[x+1][(y)] == Constants.FLOOR)) {
+					this.map[x][y] = Constants.WALL_CORNER_RIGHT;
+				}
+			}
+		}
+	}
+	
 	public void createRoom() {
 		int ww = 5 + this.r.nextInt(5);
 		int hh = 5 + this.r.nextInt(5);

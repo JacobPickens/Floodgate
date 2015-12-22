@@ -35,7 +35,8 @@ public class MiniMap extends GuiElement {
 	private static int miniY;
 	private int oy;
 	private int[][] last;
-
+	private boolean firstDraw;
+	
 	Color color;
 	Graphics g;
 
@@ -64,6 +65,7 @@ public class MiniMap extends GuiElement {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		firstDraw = true;
 		drawToMap();
 	}
 
@@ -74,65 +76,124 @@ public class MiniMap extends GuiElement {
 	Color green = new Color(256, 0, 0);
 	Color greenDim = new Color(128, 0, 0);
 	public void drawToMap() {
-		g.clear();
 		g.setBackground(Color.white);
+		
+		if(firstDraw) {
+			firstDraw = false;
+			for (int y = 0; y < map.getHeight(); y++) {
+				for (int x = 0; x < map.getWidth(); x++) {
+					int tile = map.getRawData()[x][y];
 
-		for (int y = 0; y < map.getHeight(); y++) {
-			for (int x = 0; x < map.getWidth(); x++) {
-				int tile = map.getRawData()[x][y];
-
-				switch (tile) {
-				case Constants.WALL:
-					g.setColor(Color.red);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-					break;
-				case Constants.WATER:
-					g.setColor(Color.yellow);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-					break;
-				}
-
-				Object o = oc.getObject(x, y);
-				if (o instanceof Barrier) {
-					g.setColor(Color.red);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-				} else if (o instanceof FaucetStopper) {
-					g.setColor(Color.green);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-				} else if (o instanceof Floodgate) {
-					Color color = red;
-					switch (((Floodgate) o).type) {
-					case Floodgate.RED:
-						if (Constants.RED_DOOR_STATE) {
-							color = red;
-						} else {
-							color = redDim;
-						}
-						break;
-					case Floodgate.GREEN:
-						if (Constants.GREEN_DOOR_STATE) {
-							color = green;
-						} else {
-							color = greenDim;
-						}
-						break;
-					case Floodgate.BLUE:
-						if (Constants.BLUE_DOOR_STATE) {
-							color = blue;
-						} else {
-							color = blueDim;
-						}
-						break;
-					}
-					g.setColor(color);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-				} else if (o instanceof Chest) {
-					g.setColor(Color.magenta);
-					g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-				} else if(o instanceof Water) {
-					if(((Water)o).isFrozen()) {
-						g.setColor(Color.cyan);
+					switch (tile) {
+					case Constants.FLOOR:
+						g.setColor(Color.darkGray);
 						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+						break;
+					case Constants.WATER:
+						g.setColor(Color.yellow);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+						break;
+					case Constants.CHEST:
+						g.setColor(Color.magenta);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					}
+
+					Object o = oc.getObject(x, y);
+					if (o instanceof Barrier) {
+						g.setColor(Color.red);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if (o instanceof FaucetStopper) {
+						g.setColor(Color.green);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if (o instanceof Floodgate) {
+						Color color = red;
+						switch (((Floodgate) o).type) {
+						case Floodgate.RED:
+							if (Constants.RED_DOOR_STATE) {
+								color = red;
+							} else {
+								color = redDim;
+							}
+							break;
+						case Floodgate.GREEN:
+							if (Constants.GREEN_DOOR_STATE) {
+								color = green;
+							} else {
+								color = greenDim;
+							}
+							break;
+						case Floodgate.BLUE:
+							if (Constants.BLUE_DOOR_STATE) {
+								color = blue;
+							} else {
+								color = blueDim;
+							}
+							break;
+						}
+						g.setColor(color);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if(o instanceof Water) {
+						if(((Water)o).isFrozen()) {
+							g.setColor(Color.cyan);
+							g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+						}
+					}
+				}
+			}
+		} else {
+			for (int y = 0; y < map.getHeight(); y++) {
+				for (int x = 0; x < map.getWidth(); x++) {
+					int tile = map.getRawData()[x][y];
+
+					switch (tile) {
+					case Constants.WATER:
+						g.setColor(Color.yellow);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+						break;
+					case Constants.CHEST:
+						g.setColor(Color.magenta);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					}
+
+					Object o = oc.getObject(x, y);
+					if (o instanceof Barrier) {
+						g.setColor(Color.red);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if (o instanceof FaucetStopper) {
+						g.setColor(Color.green);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if (o instanceof Floodgate) {
+						Color color = red;
+						switch (((Floodgate) o).type) {
+						case Floodgate.RED:
+							if (Constants.RED_DOOR_STATE) {
+								color = red;
+							} else {
+								color = redDim;
+							}
+							break;
+						case Floodgate.GREEN:
+							if (Constants.GREEN_DOOR_STATE) {
+								color = green;
+							} else {
+								color = greenDim;
+							}
+							break;
+						case Floodgate.BLUE:
+							if (Constants.BLUE_DOOR_STATE) {
+								color = blue;
+							} else {
+								color = blueDim;
+							}
+							break;
+						}
+						g.setColor(color);
+						g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+					} else if(o instanceof Water) {
+						if(((Water)o).isFrozen()) {
+							g.setColor(Color.cyan);
+							g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
+						}
 					}
 				}
 			}
@@ -142,6 +203,7 @@ public class MiniMap extends GuiElement {
 		g.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
 
 		g.flush();
+		last = map.getRawData();
 	}
 
 	@Override
@@ -228,6 +290,13 @@ public class MiniMap extends GuiElement {
 	public void reset(TileMap map, ObjectController oc) {
 		this.map = map;
 		this.oc = oc;
+		firstDraw = true;
+		try {
+			img = new Image(width, height);
+			g = img.getGraphics();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		drawToMap();
 	}
 

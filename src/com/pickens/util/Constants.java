@@ -63,6 +63,9 @@ public class Constants {
 	public static final int STOPPER = 16;
 	public static final int BARRIER = 17;
 	public static final int CHEST = 18;
+	public static final int WALL_CORNER_RIGHT = 19;
+	public static final int WALL_CORNER_LEFT = 20;
+	public static final int RIM_TUNNEL = 21;
 	
 	// Door states
 	public static boolean RED_DOOR_STATE = false;

@@ -9,6 +9,8 @@ public class Images {
 
 	public static SpriteSheet WALL_SHEET;
 	public static SpriteSheet RIM_SHEET;
+	public static SpriteSheet ACCENTS;
+	public static SpriteSheet ADVANCED_ACCENTS;
 	public static SpriteSheet PLAYER_SHEET;
 	public static SpriteSheet POTIONS;
 	
@@ -47,6 +49,8 @@ public class Images {
 		try {
 			WALL_SHEET = new SpriteSheet("res/wall_floor_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			RIM_SHEET = new SpriteSheet("res/rim_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
+			ACCENTS = new SpriteSheet("res/accent_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
+			ADVANCED_ACCENTS = new SpriteSheet("res/accent_tiles2.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			TRAPS = new SpriteSheet("res/trap_tiles.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			POTIONS = new SpriteSheet("res/potion_sheet.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
 			PLAYER_SHEET = new SpriteSheet("res/player_sheet.png", Constants.TILE_SIZE, Constants.TILE_SIZE);
