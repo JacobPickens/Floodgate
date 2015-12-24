@@ -55,7 +55,7 @@ public class TileMap {
 				this.tile[x][y].render(mapOffsetX, mapOffsetY, g);
 			}
 		}
-		accents.render(g);
+		//accents.render(g);
 	}
 
 	int i = 0;
@@ -356,6 +356,22 @@ public class TileMap {
 				}
 			}
 		}
+		
+		// Grates
+//		for (int y = 0; y < h; y++) {
+//			for (int x = 0; x < w; x++) {
+//				if(this.map[x][y] == Constants.EMPTY && accents.getObject(x, y) == null) {
+//					if(r.nextInt(400) < 1) {
+//						if(r.nextInt(100) < 35) {
+//							this.map[x][y] = Constants.WATER;
+//						} else {
+//							this.map[x][y] = Constants.FLOOR;
+//						}
+//						accents.add(new Accent(x, y, this, accents, Images.RIM_SHEET.getSubImage(2, 1)));
+//					}
+//				}
+//			}
+//		}
 	}
 	
 	public void createRoom() {
@@ -541,18 +557,13 @@ public class TileMap {
 			}
 		}
 		
-		int waterCount = 0;
-		for (int i = 0; i < this.rooms.size(); i++) {
-			Room room = (Room) this.rooms.get(i);
-			if (i > 0) {
-				if (this.r.nextInt(100) < 45) {
-					oc.add(new Water(room.center.x, room.center.y, this, oc));
-					waterCount++;
-				} else if ((waterCount == 0) && (i == this.rooms.size() - 1)) {
-					oc.add(new Water(room.center.x, room.center.y, this, oc));
-					waterCount++;
-				}
-			}
+		Random r = new Random();
+		int waterCount = r.nextInt(3)+2;
+		ArrayList<Room> tempRooms = rooms;
+		for (int i = 0; i < waterCount; i++) {
+			Room room = (Room) tempRooms.get(r.nextInt(tempRooms.size()));
+			tempRooms.remove(room);
+			oc.add(new Water(room.center.x, room.center.y, this, oc));
 		}
 		
 		for (int i = 0; i < this.rooms.size(); i++) {
@@ -594,5 +605,9 @@ public class TileMap {
 		int[] array = { (int) ((-Constants.mapOffsetX + x) / Constants.TILE_SIZE) + 1, (int) ((-Constants.mapOffsetY + y) / Constants.TILE_SIZE) - 1};
 
 		return array;
+	}
+	
+	public ObjectController getAccents() {
+		return accents;
 	}
 }

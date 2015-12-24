@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 
 import com.pickens.map.TileMap;
 import com.pickens.util.Constants;
+import com.pickens.util.Images;
 
 public class Accent extends Object {
 
@@ -18,7 +19,7 @@ public class Accent extends Object {
 
 	@Override
 	public void render(Graphics g) {
-		if(map.getRawData()[x][y] == Constants.FLOOR || map.getRawData()[x][y] == Constants.WALL || map.getRawData()[x][y] == Constants.WALL_CORNER_RIGHT || map.getRawData()[x][y] == Constants.WALL_CORNER_LEFT ||  map.getRawData()[x][y] == Constants.CHEST || map.getRawData()[x][y] == Constants.WATER) {
+		if(image != Images.RIM_SHEET.getSubImage(2, 1) && (map.getRawData()[x][y] == Constants.FLOOR || map.getRawData()[x][y] == Constants.WALL || map.getRawData()[x][y] == Constants.WALL_CORNER_RIGHT || map.getRawData()[x][y] == Constants.WALL_CORNER_LEFT ||  map.getRawData()[x][y] == Constants.CHEST || map.getRawData()[x][y] == Constants.WATER)) {
 			oc.remove(this);
 			return;
 		}

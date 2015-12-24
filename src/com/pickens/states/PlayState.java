@@ -98,6 +98,7 @@ public class PlayState extends BasicGameState {
 		
 		map.render(Constants.mapOffsetX, Constants.mapOffsetY, g);
 		objects.render(g);
+		map.getAccents().render(g);
 		player.render(g);
 		
 		gm.render(g);

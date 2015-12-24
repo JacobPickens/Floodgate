@@ -246,17 +246,21 @@ public class Player extends Humanoid {
 					//////////////////// Chests ////////////////////
 					if ((this.x > 0) && ((this.oc.getObject(this.x - 1, this.y) instanceof Chest))) {
 						((Chest) this.oc.getObject(this.x - 1, this.y)).roll();
+						PlayState.mm.reset(map, oc);
 					}
 					if ((this.x < this.map.getWidth())
 							&& ((this.oc.getObject(this.x + 1, this.y) instanceof Chest))) {
 						((Chest) this.oc.getObject(this.x + 1, this.y)).roll();
+						PlayState.mm.reset(map, oc);
 					}
 					if ((this.y > 0) && ((this.oc.getObject(this.x, this.y - 1) instanceof Chest))) {
 						((Chest) this.oc.getObject(this.x, this.y - 1)).roll();
+						PlayState.mm.reset(map, oc);
 					}
 					if ((this.y < this.map.getHeight())
 							&& ((this.oc.getObject(this.x, this.y + 1) instanceof Chest))) {
 						((Chest) this.oc.getObject(this.x, this.y + 1)).roll();
+						PlayState.mm.reset(map, oc);
 					}
 				}
 			}
