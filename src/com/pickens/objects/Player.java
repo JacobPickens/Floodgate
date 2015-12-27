@@ -18,6 +18,8 @@ import com.pickens.items.Inventory;
 import com.pickens.items.SnorkelEquipment;
 import com.pickens.items.TankEquipment;
 import com.pickens.map.TileMap;
+import com.pickens.objectives.Objectives;
+import com.pickens.objectives.SwimObjective;
 import com.pickens.states.PlayState;
 import com.pickens.util.BlockPlacer;
 import com.pickens.util.Character;
@@ -53,7 +55,8 @@ public class Player extends Humanoid {
 	public static Inventory inv;
 	private static BlockPlacer bp;
 	private static BuffManager buffs;
-	
+	private static Objectives objectives;
+
 	public static DeathMenu deathMenu;
 	
 	Random r = new Random();
@@ -66,6 +69,7 @@ public class Player extends Humanoid {
 		deathMenu = new DeathMenu(0, 0, gm);
 		bp = new BlockPlacer(map, oc, this);
 		buffs = new BuffManager();
+		objectives = new Objectives();
 		Constants.INVENTORY_OPEN = false;
 		Constants.MINI_MAP = false;
 		Constants.MINI_MAP_FOCUSED = false;
@@ -131,6 +135,7 @@ public class Player extends Humanoid {
 		inv.render(g);
 		gm.render(g);
 		buffs.render(g);
+		objectives.renderList(g, 5, 96);
 		if(dead) {
 			deathMenu.render(g);
 		}
@@ -300,6 +305,8 @@ public class Player extends Humanoid {
 					dead = true;
 				}
 			}
+			
+			objectives.check();
 		}
 		
 		gm.update(gc, delta);
@@ -471,6 +478,7 @@ public class Player extends Humanoid {
 		this.oxygen = Constants.currentCharacter.getOxygen();
 		
 		bp = new BlockPlacer(map, oc, this);
+		objectives = new Objectives();
 		
 		Constants.MINI_MAP = false;
 	}
@@ -520,5 +528,13 @@ public class Player extends Humanoid {
 
 	public void setMaxOxygen(int maxOxygen) {
 		this.maxOxygen = maxOxygen;
+	}
+	
+	public static Objectives getObjectives() {
+		return objectives;
+	}
+
+	public static void setObjectives(Objectives objectives) {
+		Player.objectives = objectives;
 	}
 }

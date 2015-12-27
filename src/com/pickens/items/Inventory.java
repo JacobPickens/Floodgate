@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import com.pickens.objects.Player;
+import com.pickens.states.PlayState;
 import com.pickens.util.Constants;
 import com.pickens.util.Fonts;
 
@@ -166,6 +167,18 @@ public class Inventory {
 //		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
 //			slots[0][0].setItem(new MapItem(0, 0, p, this));
 //		}
+	}
+	
+	public Slot getEmptySlot() {
+		for (int y = 0; y < Player.inv.getHeight(); y++) {
+			for (int x = 0; x < Player.inv.getWidth(); x++) {
+				Slot slot = Player.inv.getSlots()[x][y];
+				if(slot.getItem() == null) {
+					return slot;
+				}
+			}
+		}
+		return null;
 	}
 
 	public Slot[][] getSlots() {
