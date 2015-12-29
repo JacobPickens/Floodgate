@@ -49,5 +49,14 @@ public class Objectives {
 	public ArrayList<Objective> getObjectives() {
 		return objectives;
 	}
+
+	public boolean hasObjective(Objective obj) {
+		for(int i = 0; i < objectives.size(); i++){
+			if(objectives.get(i).getClass().equals(obj.getClass())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

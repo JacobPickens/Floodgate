@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 public abstract class Objective {
 
 	Image icon;
+	String name;
 	String longDescription;
 	String shortDescription;
 	
@@ -15,6 +16,7 @@ public abstract class Objective {
 	public Objective(Objectives objs) {
 		this.objs = objs;
 		completed = false;
+		name = "";
 		longDescription = "";
 		shortDescription = "";
 	}
@@ -27,6 +29,7 @@ public abstract class Objective {
 		if(isCompleted()) {
 			ticker++;
 			if(ticker > 30) {
+				ticker = 0;
 				objs.remove(this);
 			}
 		} else {
@@ -45,6 +48,14 @@ public abstract class Objective {
 
 	public void setIcon(Image icon) {
 		this.icon = icon;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLongDescription() {
