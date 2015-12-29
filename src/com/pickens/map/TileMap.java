@@ -11,6 +11,7 @@ import com.pickens.objects.Chest;
 import com.pickens.objects.FaucetStopper;
 import com.pickens.objects.Floodgate;
 import com.pickens.objects.ObjectController;
+import com.pickens.objects.QuestGiver;
 import com.pickens.objects.Water;
 import com.pickens.util.Constants;
 import com.pickens.util.Images;
@@ -557,15 +558,6 @@ public class TileMap {
 			}
 		}
 		
-		Random r = new Random();
-		int waterCount = r.nextInt(3)+2;
-		ArrayList<Room> tempRooms = rooms;
-		for (int i = 0; i < waterCount; i++) {
-			Room room = (Room) tempRooms.get(r.nextInt(tempRooms.size()));
-			tempRooms.remove(room);
-			oc.add(new Water(room.center.x, room.center.y, this, oc));
-		}
-		
 		for (int i = 0; i < this.rooms.size(); i++) {
 			Room room = (Room) this.rooms.get(i);
 			if (i > 0) {
@@ -576,6 +568,36 @@ public class TileMap {
 					}
 				}
 			}
+		}
+		
+//		// NPC Spawning HIGHLY TEMPORARY
+//		for (int i = 0; i < this.rooms.size(); i++) {
+//			Room room = (Room) this.rooms.get(i);
+//			if (i > 0) {
+//				if (this.r.nextInt(100) < 80) {
+//					int x = room.x1 + r.nextInt(room.w);
+//					int y = room.y1 + r.nextInt(room.h);
+//					if(this.map[x][y] != Constants.CHEST) {
+//						System.out.println("Spawned");
+//						oc.add(new QuestGiver(x, y, this, oc));
+//					}
+//				}
+//			}
+//		}
+		
+		// Quest Giver Spawn
+		Room room = getRoom(w / 2, h / 2);
+		if(room != null) {
+			oc.add(new QuestGiver(room.x1 + room.w-1, room.y1, this, oc));
+		}
+		
+		Random r = new Random();
+		int waterCount = r.nextInt(3)+1;
+		ArrayList<Room> tempRooms = rooms;
+		for (int i = 0; i < waterCount; i++) {
+			Room rr = (Room) tempRooms.get(r.nextInt(tempRooms.size()));
+			tempRooms.remove(rr);
+			oc.add(new Water(rr.center.x, rr.center.y, this, oc));
 		}
 	}
 
@@ -605,6 +627,17 @@ public class TileMap {
 		int[] array = { (int) ((-Constants.mapOffsetX + x) / Constants.TILE_SIZE) + 1, (int) ((-Constants.mapOffsetY + y) / Constants.TILE_SIZE) - 1};
 
 		return array;
+	}
+	
+	public Room getRoom(int x, int y) {
+		for(int i = 0; i < rooms.size(); i++) {
+			Room r = rooms.get(i);
+			if(r.center.x == x && r.center.y == y) {
+				return r;
+			}
+		}
+		
+		return null;
 	}
 	
 	public ObjectController getAccents() {

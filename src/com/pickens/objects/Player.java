@@ -248,6 +248,22 @@ public class Player extends Humanoid {
 						PlayState.win();
 					}
 					
+					////////////////////NPCs ////////////////////
+					if ((this.x > 0) && ((this.oc.getObject(this.x - 1, this.y) instanceof NPC))) {
+						((NPC)this.oc.getObject(this.x - 1, this.y)).action();
+					}
+					if ((this.x < this.map.getWidth())
+							&& ((this.oc.getObject(this.x + 1, this.y) instanceof NPC))) {
+						((NPC)this.oc.getObject(this.x + 1, this.y)).action();
+					}
+					if ((this.y > 0) && ((this.oc.getObject(this.x, this.y - 1) instanceof NPC))) {
+						((NPC)this.oc.getObject(this.x, this.y - 1)).action();
+					}
+					if ((this.y < this.map.getHeight())
+							&& ((this.oc.getObject(this.x, this.y + 1) instanceof NPC))) {
+						((NPC)this.oc.getObject(this.x, this.y + 1)).action();
+					}
+					
 					//////////////////// Chests ////////////////////
 					if ((this.x > 0) && ((this.oc.getObject(this.x - 1, this.y) instanceof Chest))) {
 						((Chest) this.oc.getObject(this.x - 1, this.y)).roll();
@@ -339,7 +355,8 @@ public class Player extends Humanoid {
 			if ((this.y > 0) && (this.up)
 					&& ((this.map.getRawData()[this.x][(this.y - 1)] == 0)
 							|| (this.map.getRawData()[this.x][(this.y - 1)] == 15))
-					&& (!(this.oc.getObject(this.x, this.y - 1) instanceof FaucetStopper))) {
+					&& (!(this.oc.getObject(this.x, this.y - 1) instanceof FaucetStopper))
+					&& (!(this.oc.getObject(this.x, this.y - 1) instanceof NPC))) {
 				direction = UP;
 				
 				Object test = this.oc.getObject(this.x, this.y - 1);
@@ -356,7 +373,8 @@ public class Player extends Humanoid {
 			if ((this.y < this.map.getHeight()) && (this.down)
 					&& ((this.map.getRawData()[this.x][(this.y + 1)] == 0)
 							|| (this.map.getRawData()[this.x][(this.y + 1)] == 15))
-					&& (!(this.oc.getObject(this.x, this.y + 1) instanceof FaucetStopper))) {
+					&& (!(this.oc.getObject(this.x, this.y + 1) instanceof FaucetStopper))
+					&& (!(this.oc.getObject(this.x, this.y + 1) instanceof NPC))) {
 				direction = DOWN;
 				Object test = this.oc.getObject(this.x, this.y + 1);
 				if ((test instanceof Floodgate)) {
@@ -372,7 +390,8 @@ public class Player extends Humanoid {
 			if ((this.x > 0) && (this.left)
 					&& ((this.map.getRawData()[(this.x - 1)][this.y] == 0)
 							|| (this.map.getRawData()[(this.x - 1)][this.y] == 15))
-					&& (!(this.oc.getObject(this.x - 1, this.y) instanceof FaucetStopper))) {
+					&& (!(this.oc.getObject(this.x - 1, this.y) instanceof FaucetStopper))
+					&& (!(this.oc.getObject(this.x - 1, this.y) instanceof NPC))) {
 				direction = LEFT;
 				Object test = this.oc.getObject(this.x - 1, this.y);
 				if ((test instanceof Floodgate)) {
@@ -388,7 +407,8 @@ public class Player extends Humanoid {
 			if ((this.x < this.map.getWidth()) && (this.right)
 					&& ((this.map.getRawData()[(this.x + 1)][this.y] == 0)
 							|| (this.map.getRawData()[(this.x + 1)][this.y] == 15))
-					&& (!(this.oc.getObject(this.x + 1, this.y) instanceof FaucetStopper))) {
+					&& (!(this.oc.getObject(this.x + 1, this.y) instanceof FaucetStopper))
+					&& (!(this.oc.getObject(this.x + 1, this.y) instanceof NPC))) {
 				direction = RIGHT;
 				Object test = this.oc.getObject(this.x + 1, this.y);
 				if ((test instanceof Floodgate)) {

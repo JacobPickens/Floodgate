@@ -8,7 +8,9 @@ public class SwimObjective extends Objective {
 
 	public SwimObjective(Objectives objs) {
 		super(objs);
+		setName("Swim Test");
 		setShortDescription("Swim in water.");
+		setLongDescription("Touch some of that nasty sewer water.");
 	}
 
 	@Override

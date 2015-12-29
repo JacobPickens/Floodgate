@@ -12,6 +12,7 @@ import com.pickens.gui.GuiManager;
 import com.pickens.gui.InventoryButton;
 import com.pickens.gui.MiniMap;
 import com.pickens.gui.PauseMenu;
+import com.pickens.gui.QuestViewer;
 import com.pickens.gui.ToggleBlueButton;
 import com.pickens.gui.ToggleGreenButton;
 import com.pickens.gui.ToggleRedButton;
@@ -30,6 +31,7 @@ public class PlayState extends BasicGameState {
 	public static GuiManager gm;
 	public static MiniMap mm;
 	public static PauseMenu pm;
+	public static QuestViewer qv;
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		reset();
@@ -59,6 +61,8 @@ public class PlayState extends BasicGameState {
 		gm.setJustification(GuiManager.CENTER_JUST);
 		pm = new PauseMenu(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
 		gm.add(pm);
+		qv = new QuestViewer(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
+		gm.add(qv);
 		
 		Constants.RED_DOOR_STATE = false;
 		Constants.GREEN_DOOR_STATE = false;

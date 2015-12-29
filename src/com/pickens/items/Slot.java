@@ -112,7 +112,7 @@ public class Slot {
 			item.update(gc, delta);
 		}
 		
-		if(ticker > 10) {
+		if(ticker > 15) {
 			if(!Constants.REROLL && !Constants.CLONE && !Constants.REPAIR) {
 				if(left && clickCount == 1 && hasItem() && getItem() instanceof TankEquipment && inv.getInventoryManager().getItem() instanceof BubbleItem) {
 					((TankEquipment) getItem()).refill(((BubbleItem)inv.getInventoryManager().getItem()).amount);
