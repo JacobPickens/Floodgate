@@ -129,9 +129,9 @@ public class Inventory {
 		body.check(gc, delta);
 		feet.check(gc, delta);
 		
-		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
-			slots[0][0].setItem(new MapItem(0, 0, p, this));
-		}
+//		if(gc.getInput().isKeyPressed(Input.KEY_F)) {
+//			slots[0][0].setItem(new MapItem(0, 0, p, this));
+//		}
 		
 		if(Constants.INVENTORY_OPEN) {
 			remove.check(gc, delta);

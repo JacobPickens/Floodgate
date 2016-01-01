@@ -44,7 +44,7 @@ public class NewRatButton extends GuiElement {
 
 	@Override
 	public void onRelease(int button, GameContainer gc) {
-		Constants.currentCharacter = new Character(15, 9, 2, 4, 4);
+		Constants.currentCharacter = new Character(7, 10, 3, 3, 2);
 		
 		PlayState.player.setStats(Constants.currentCharacter);
 		

@@ -16,6 +16,7 @@ import com.pickens.gui.QuestViewer;
 import com.pickens.gui.ToggleBlueButton;
 import com.pickens.gui.ToggleGreenButton;
 import com.pickens.gui.ToggleRedButton;
+import com.pickens.gui.UpgradeMenu;
 import com.pickens.items.LuckyUnderwearEquipment;
 import com.pickens.map.TileMap;
 import com.pickens.objects.ObjectController;
@@ -31,6 +32,7 @@ public class PlayState extends BasicGameState {
 	public static GuiManager gm;
 	public static MiniMap mm;
 	public static PauseMenu pm;
+	public static UpgradeMenu um;
 	public static QuestViewer qv;
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -59,10 +61,12 @@ public class PlayState extends BasicGameState {
 		mm = new MiniMap(Constants.WIDTH, 0, gm, map, objects, player);
 		gm.add(mm);
 		gm.setJustification(GuiManager.CENTER_JUST);
-		pm = new PauseMenu(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
-		gm.add(pm);
+		um = new UpgradeMenu(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
+		gm.add(um);
 		qv = new QuestViewer(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
 		gm.add(qv);
+		pm = new PauseMenu(Constants.WIDTH/2, Constants.HEIGHT/2, gm);
+		gm.add(pm);
 		
 		Constants.RED_DOOR_STATE = false;
 		Constants.GREEN_DOOR_STATE = false;
@@ -83,8 +87,6 @@ public class PlayState extends BasicGameState {
 		Constants.mapTargetY = Constants.mapOffsetY;
 		
 		player.reset(map, objects, map.getWidth()/2-1, map.getHeight()/2-1);
-		Constants.currentCharacter.setInventoryWidth(Constants.currentCharacter.getInventoryWidth()+1);
-		player.setStats(Constants.currentCharacter);
 		if(player.inv.getHead().getItem() instanceof LuckyUnderwearEquipment) { // Scuba tank depelteion
 			((LuckyUnderwearEquipment)player.inv.getHead().getItem()).damageCall(player);
 		}

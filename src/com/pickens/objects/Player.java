@@ -163,9 +163,9 @@ public class Player extends Humanoid {
 		
 		if(!Constants.INVENTORY_OPEN) buffs.update(gc, delta);
 		
-		if(gc.getInput().isKeyPressed(Input.KEY_R)) {
-			PlayState.win();
-		}
+//		if(gc.getInput().isKeyPressed(Input.KEY_R)) {
+//			PlayState.um.open();
+//		}
 		
 		if(dead) {
 			deathMenu.check(gc, delta);
@@ -245,18 +245,18 @@ public class Player extends Humanoid {
 				if (gc.getInput().isKeyPressed(Input.KEY_SPACE)) {
 					//////////////////// Faucet Stopper ////////////////////
 					if ((this.x > 0) && ((this.oc.getObject(this.x - 1, this.y) instanceof FaucetStopper))) {
-						PlayState.win();
+						PlayState.um.open();
 					}
 					if ((this.x < this.map.getWidth())
 							&& ((this.oc.getObject(this.x + 1, this.y) instanceof FaucetStopper))) {
-						PlayState.win();
+						PlayState.um.open();
 					}
 					if ((this.y > 0) && ((this.oc.getObject(this.x, this.y - 1) instanceof FaucetStopper))) {
-						PlayState.win();
+						PlayState.um.open();
 					}
 					if ((this.y < this.map.getHeight())
 							&& ((this.oc.getObject(this.x, this.y + 1) instanceof FaucetStopper))) {
-						PlayState.win();
+						PlayState.um.open();
 					}
 					
 					////////////////////NPCs ////////////////////
