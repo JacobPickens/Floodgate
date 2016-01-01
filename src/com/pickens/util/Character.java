@@ -70,12 +70,12 @@ public class Character {
 		this.speed = speed;
 	}
 
-	public Color getColor() {
-		return color;
+	public int getWaterSpeed() {
+		return waterSpeed;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setWaterSpeed(int waterSpeed) {
+		this.waterSpeed = waterSpeed;
 	}
 
 	public int getHealth() {
@@ -85,21 +85,29 @@ public class Character {
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	
+
 	public int getInventoryWidth() {
 		return invWidth;
 	}
-	
+
+	public void setInventoryWidth(int invWidth) {
+		this.invWidth = invWidth;
+	}
+
 	public int getInventoryHeight() {
 		return invHeight;
 	}
 
-	public int getWaterSpeed() {
-		return waterSpeed;
+	public void setInventoryHeight(int invHeight) {
+		this.invHeight = invHeight;
 	}
 
-	public void setWaterSpeed(int waterSpeed) {
-		this.waterSpeed = waterSpeed;
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 }

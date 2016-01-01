@@ -235,5 +235,21 @@ public class Slot {
 	public int getY() {
 		return y;
 	}
+
+	public int getOx() {
+		return ox;
+	}
+
+	public void setOx(int ox) {
+		this.ox = ox;
+	}
+
+	public int getOy() {
+		return oy;
+	}
+
+	public void setOy(int oy) {
+		this.oy = oy;
+	}
 	
 }

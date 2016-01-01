@@ -13,10 +13,6 @@ public class Objectives {
 	
 	public Objectives() {
 		objectives = new ArrayList<Objective>();
-		objectives.add(new SwimObjective(this));
-		objectives.add(new OtherObjective(this));
-		objectives.add(new OtherObjective(this));
-		objectives.add(new OtherObjective(this));
 	}
 	
 	public void renderList(Graphics g, int x, int y) {

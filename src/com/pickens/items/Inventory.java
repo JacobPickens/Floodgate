@@ -43,11 +43,11 @@ public class Inventory {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				Slot s = new Slot(x, y, this.x, this.y, this);
-				if(r.nextInt(100) < 10) {
-					s.setItem(new BarrierItem(x, y, p, this));
-				} else if(r.nextInt(100) < 5) {
-					s.setItem(new BubbleItem(x, y, p, this));
-				}
+//				if(r.nextInt(100) < 10) {
+//					s.setItem(new BarrierItem(x, y, p, this));
+//				} else if(r.nextInt(100) < 5) {
+//					s.setItem(new BubbleItem(x, y, p, this));
+//				}
 				//s.setItem(new LungEnlargementPills(x, y, p, this));
 				slots[x][y] = s;
 			}

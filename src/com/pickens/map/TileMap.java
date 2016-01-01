@@ -586,10 +586,10 @@ public class TileMap {
 //		}
 		
 		// Quest Giver Spawn
-		Room room = getRoom(w / 2, h / 2);
-		if(room != null) {
-			oc.add(new QuestGiver(room.x1 + room.w-1, room.y1, this, oc));
-		}
+//		Room room = getRoom(w / 2, h / 2);
+//		if(room != null) {
+//			oc.add(new QuestGiver(room.x1 + room.w-1, room.y1, this, oc));
+//		}
 		
 		Random r = new Random();
 		int waterCount = r.nextInt(3)+1;

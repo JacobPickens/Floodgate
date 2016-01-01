@@ -83,6 +83,8 @@ public class PlayState extends BasicGameState {
 		Constants.mapTargetY = Constants.mapOffsetY;
 		
 		player.reset(map, objects, map.getWidth()/2-1, map.getHeight()/2-1);
+		Constants.currentCharacter.setInventoryWidth(Constants.currentCharacter.getInventoryWidth()+1);
+		player.setStats(Constants.currentCharacter);
 		if(player.inv.getHead().getItem() instanceof LuckyUnderwearEquipment) { // Scuba tank depelteion
 			((LuckyUnderwearEquipment)player.inv.getHead().getItem()).damageCall(player);
 		}

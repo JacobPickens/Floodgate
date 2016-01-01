@@ -89,7 +89,18 @@ public class Player extends Humanoid {
 		gm.setJustification(GuiManager.LEFT_JUST);
 		gm.add(new HealthBar(10, 10, gm, this));
 		gm.add(new OxygenBar(10, 60, gm, this));
-		inv = new Inventory(this);
+		Inventory temp = new Inventory(this);
+		if(inv != null) {
+			// Inv Transfer
+			for(int y = 0; y < inv.getHeight(); y++) {
+				for(int x = 0; x < inv.getWidth(); x++) {
+					inv.getSlots()[x][y].setOx(temp.getSlots()[x][y].getOx());
+					inv.getSlots()[x][y].setOy(temp.getSlots()[x][y].getOy());
+					temp.getSlots()[x][y] = inv.getSlots()[x][y];
+				}
+			}
+		}
+		inv = temp;
 	}
 	
 	public int getHealth() {
@@ -135,7 +146,7 @@ public class Player extends Humanoid {
 		inv.render(g);
 		gm.render(g);
 		buffs.render(g);
-		objectives.renderList(g, 5, 96);
+		//objectives.renderList(g, 5, 96);
 		if(dead) {
 			deathMenu.render(g);
 		}
